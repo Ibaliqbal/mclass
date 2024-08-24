@@ -23,6 +23,7 @@ const buttonVariants = cva(
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         icon: "text-slate-900 dark:text-slate-50",
+        logout: "bg-red-600 text-slate-100 shadow-sm hover:bg-red-600/80 dark:bg-red-600 dark:text-slate-50 dark:hover:bg-red-600/80"
       },
       size: {
         default: "h-9 px-4 py-2",

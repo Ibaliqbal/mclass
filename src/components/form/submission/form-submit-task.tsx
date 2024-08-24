@@ -40,6 +40,13 @@ const FormSubmitTask = () => {
       >
         Tanda sebagai selesai
       </Button>
+      <Button
+        variant="outline"
+        size="lg"
+        className="font-semibold flex items-center gap-3"
+      >
+        Batalkan pengiriman tugas
+      </Button>
     </section>
   );
 };

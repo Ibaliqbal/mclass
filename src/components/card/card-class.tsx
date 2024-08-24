@@ -28,7 +28,7 @@ const CardClass = ({ i }: { i: number }) => {
         alt="Header_photo"
       />
       <div className="pl-3 px-2">
-        <Avatar className="w-20 h-20 -mt-14">
+        <Avatar className="w-20 h-20 -mt-14 mb-4">
           <AvatarImage
             src="/avatar.jpg"
             width={100}
@@ -37,7 +37,7 @@ const CardClass = ({ i }: { i: number }) => {
             className="object-cover object-center"
           />
         </Avatar>
-        <Link href={"/c/340sAss"} className="mt-3">
+        <Link href={"/c/340sAss"}>
           <h1 className="text-xl font-semibold hover:underline hover:underline-offset-4 line-clamp-1">
             PRE_XII EI2
           </h1>
@@ -47,7 +47,9 @@ const CardClass = ({ i }: { i: number }) => {
           <p className="hover:underline hover:underline-offset-4 line-clamp-1">
             Tike Setiawati
           </p>
-          <Separator className="mt-3" />
+        </Link>
+        <Separator className="mt-3" />
+        <Link href={"/c/340sAss/t"}>
           <FaFolderOpen className="text-lg mt-3 cursor-pointer" />
         </Link>
       </div>

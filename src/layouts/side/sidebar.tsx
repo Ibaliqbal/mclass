@@ -1,5 +1,7 @@
+import ButtonJoinClass from "@/components/button/button-join-class";
 import LinkActive from "@/components/side/link-active";
 import ListClass from "@/components/side/list-calss";
+import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import {
@@ -11,7 +13,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <aside className="col-span-1 py-4 flex flex-col gap-3 sticky top-0">
+    <aside className="col-span-1 py-4 flex flex-col gap-3">
       <LinkActive
         className="text-lg flex items-center gap-3 font-semibold px-3"
         href="/"
@@ -29,6 +31,20 @@ const Sidebar = () => {
         active={<IoSettings className="text-2xl" />}
         nonActive={<IoSettingsOutline className="text-2xl" />}
       />
+      <ButtonJoinClass />
+      <div className="flex flex-col items-center px-3 w-full">
+        <Calendar />
+        <p className="text-center text-xs">
+          <span className="text-sm bg-green-300 dark:bg-gradient-to-br from-emerald-300 to-green-500 px-2 py-1 dark:text-slate-700 font-semibold mx-[2px]">
+            ⌛ Waktu
+          </span>{" "}
+          itu cepat banget, jangan sampai kita buang-buang{" "}
+          <span className="text-sm bg-green-300 dark:bg-gradient-to-br from-emerald-300 to-green-500 px-2 py-1 dark:text-slate-700 font-semibold mx-[2px]">
+            waktu
+          </span>{" "}
+          ya! 🎓
+        </p>
+      </div>
     </aside>
   );
 };

@@ -10,18 +10,36 @@ import {
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const ListClass = ({}: {}) => {
+  const pathaname = usePathname();
   return (
     <Accordion collapsible type="single" className="px-3">
       <AccordionItem value="list-classroom">
         <AccordionTrigger>
-          <p className="flex items-center gap-3">
+          <p className="flex items-center gap-3 font-semibold">
             <SiGoogleclassroom className="text-2xl" /> Classroom
           </p>
         </AccordionTrigger>
         <AccordionContent>
           <div className="w-full flex flex-col gap-3">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeInOut",
+                type: "tween",
+              }}
+            >
+              <Link
+                href={"/t/missing/all"}
+                className="flex items-center gap-3 py-2 border border-gray-500 rounded-lg pl-2 group text-lg"
+              >
+                <LuBookMarked /> List Tasks
+              </Link>
+            </motion.div>
             {Array.from({ length: 10 }).map((_, i) => (
               <motion.div
                 initial={{ scale: 0 }}
@@ -36,7 +54,7 @@ const ListClass = ({}: {}) => {
               >
                 <Link
                   href={"/c/340sAss"}
-                  className="flex items-center gap-3 py-2 border border-gray-500 rounded-lg pl-2"
+                  className="flex items-center gap-3 py-2 border border-gray-500 rounded-lg pl-2 group"
                 >
                   <Image
                     src={"/avatar.jpg"}
@@ -46,10 +64,12 @@ const ListClass = ({}: {}) => {
                     className="object-cover object-center w-[40px] h-[40px] rounded-full"
                   />
                   <div>
-                    <h1 className="line-clamp-1 text-md font-semibold">
+                    <h1 className="line-clamp-1 text-md font-semibold group-hover:underline underline-offset-2">
                       PRE_XII EI 2
                     </h1>
-                    <p className="line-clamp-1 text-xs">Tika Setiawati</p>
+                    <p className="line-clamp-1 text-xs group-hover:underline underline-offset-2">
+                      Tika Setiawati
+                    </p>
                   </div>
                 </Link>
               </motion.div>

@@ -19,7 +19,10 @@ const CardSubjectMatter = ({ index }: { index: number }) => {
       }}
       className="px-5 py-4 w-full flex justify-between items-center border-[1px] border-gray-300 rounded-md"
     >
-      <Link href="/c/340sAss/s/jahihi10-1919" className="flex items-center gap-4">
+      <Link
+        href="/c/340sAss/s/jahihi10-1919"
+        className="flex items-center gap-4"
+      >
         <div className="p-4 bg-sky-500 rounded-full">
           <MdOutlineQuiz className="text-2xl text-white" />
         </div>

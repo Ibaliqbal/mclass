@@ -26,7 +26,7 @@ const CardFile = ({ index }: Props) => {
         ease: "circInOut",
         type: "tween",
       }}
-      className="flex group flex-col relative p-3 border cursor-pointer border-gray-500 gap-3 rounded-md items-center"
+      className="flex group flex-col hover:scale-95 transition-transform duration-300 ease-linear relative p-3 border cursor-pointer border-gray-500 gap-3 rounded-md items-center"
     >
       <div className="w-full flex justify-center">
         <FaFilePdf className="text-6xl" />

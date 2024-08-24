@@ -1,8 +1,8 @@
-import LayoutStudent from "@/layouts/student/layout-student";
+import LayoutTeacher from "@/layouts/teacher/layout-teacher";
 import { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
-  return <LayoutStudent>{children}</LayoutStudent>;
+  return <LayoutTeacher>{children}</LayoutTeacher>;
 };
 
 export default layout;

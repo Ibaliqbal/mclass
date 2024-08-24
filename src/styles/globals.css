@@ -1,4 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-  
+
+.header_photo {
+  -webkit-mask-image: linear-gradient(
+    rgba(0, 0, 0, 0.8) 90%,
+    rgba(0, 0, 0, 0.2)
+  );
+  mask-image: linear-gradient(rgba(0, 0, 0, 0.8) 90%, rgba(0, 0, 0, 0.2));
+}

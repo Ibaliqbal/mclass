@@ -1,5 +1,5 @@
 import LayoutStudent from "@/layouts/student/layout-student";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return <LayoutStudent>{children}</LayoutStudent>;
