@@ -4,10 +4,9 @@ import React from "react";
 
 const page = () => {
   return (
-    <main className="">
-      <NavbarHome />
+    <div className="">
       <h1>About Us</h1>
-    </main>
+    </div>
   );
 };
 

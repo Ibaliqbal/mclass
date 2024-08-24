@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const NavbarHome = () => {
   return (
-    <nav className="w-full px-4 py-5 flex justify-between items-center">
+    <nav className="w-full px-4 py-5 flex justify-between items-center sticky top-0 z-[50]">
       <h1 className="italic text-xl font-bold">
         <Link href={"/"}>MCLASS</Link>
       </h1>
@@ -16,7 +16,9 @@ const NavbarHome = () => {
           About us
         </Link>
         <Link href={"/signin/student"}>
-          <Button variant="secondary">Login</Button>
+          <Button variant="secondary" size="lg">
+            Login
+          </Button>
         </Link>
       </div>
     </nav>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import TopLoader from "@/components/loader/top-loader";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TopLoader />
-        {children}
+        <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
+          <TopLoader />
+          {children}
+          <Toaster
+            position="bottom-right"
+            reverseOrder
+            toastOptions={{
+              duration: 4000,
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

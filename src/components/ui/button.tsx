@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-green-600 text-slate-100 shadow hover:bg-green-900/90 dark:bg-green-100 dark:text-green-600 dark:hover:bg-green-100/90",
+          "bg-green-600 text-slate-100 shadow hover:bg-green-900/90 dark:bg-green-700 dark:text-slate-100 dark:hover:bg-green-700/90",
         default:
           "bg-slate-900 text-slate-50 shadow hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90",
         destructive:
@@ -22,6 +22,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
+        icon: "text-slate-900 dark:text-slate-50",
       },
       size: {
         default: "h-9 px-4 py-2",
