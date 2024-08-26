@@ -23,7 +23,7 @@ const LayoutAuth = ({
         exit={{ opacity: 0, translateY: type === "register" ? -60 : 60 }}
         transition={{ duration: 0.3 }}
         key={type}
-        className="h-[95%] my-auto w-full py-3 grid place-items-center"
+        className="h-full lg:w-full w-[80%] py-3 grid place-items-center"
       >
         <div className="flex flex-col gap-4 w-full">
           {children}

@@ -28,7 +28,7 @@ const ButtonJoinClass = () => {
             ease: "easeInOut",
             type: "tween",
           }}
-          className="fixed w-[600px] pb-8 overflow-auto bg-black bg-opacity-80 h-fit flex flex-col gap-4 m-auto inset-0 z-[70] rounded-lg p-3 modal-post border border-gray-500"
+          className="fixed w-[600px] pb-8 overflow-auto dark:bg-black bg-white dark:bg-opacity-80 h-fit flex flex-col gap-4 m-auto inset-0 z-[70] rounded-lg p-3 modal-post border border-gray-500"
         >
           <div className="pt-4 rounded-md flex flex-col gap-3">
             <h2 className="text-xl font-semibold">Code Class</h2>
@@ -41,7 +41,12 @@ const ButtonJoinClass = () => {
               placeholder="Masukkan kode kelas"
             />
           </div>
-          <Button className="mt-4">Gabung</Button>
+          <div className="flex items-center gap-3 self-start mt-5">
+            <Button variant="logout" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button>Gabung</Button>
+          </div>
         </motion.div>
       </Modal>
     </div>

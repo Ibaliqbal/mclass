@@ -19,7 +19,6 @@ const FormRegis = () => {
   const form = useForm<TRegisS>({
     resolver: zodResolver(registerSSchema),
     defaultValues: {
-      confirmPassword: "",
       password: "",
       email: "",
       name: "",
@@ -42,10 +41,10 @@ const FormRegis = () => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Name</FormLabel>
+              <FormLabel className="md:text-lg text-sm">Name</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your name.."
                   {...field}
                 />
@@ -59,10 +58,10 @@ const FormRegis = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Email</FormLabel>
+              <FormLabel className="md:text-lg text-sm">Email</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your email.."
                   {...field}
                 />
@@ -76,10 +75,10 @@ const FormRegis = () => {
           name="nisn"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">NISN</FormLabel>
+              <FormLabel className="md:text-lg text-sm">NISN</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your nisn.."
                   {...field}
                 />
@@ -93,28 +92,11 @@ const FormRegis = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Password</FormLabel>
+              <FormLabel className="md:text-lg text-sm">Password</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your password.."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-lg">Confirm Password</FormLabel>
-              <FormControl>
-                <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
-                  placeholder="Enter your confirm password.."
                   {...field}
                 />
               </FormControl>

@@ -10,8 +10,8 @@ const page = () => {
       textMore="Hava an account ? Sign in"
     >
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold text-center max-w-xl">
-          <span className="bg-green-300 dark:bg-gradient-to-br from-emerald-300 to-green-500 px-2 py-1 text-3xl">
+        <h1 className="md:text-2xl text-xl font-semibold text-center max-w-xl">
+          <span className="bg-green-300 dark:bg-gradient-to-br from-emerald-300 to-green-500 px-2 py-1 text-2xl md:text-3xl">
             Join the Adventure!
           </span>{" "}
           🚀 Register Now to Start Your Journey with Us!

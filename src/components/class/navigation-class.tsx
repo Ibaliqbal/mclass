@@ -5,6 +5,7 @@ import React from "react";
 
 const NavigationClass = ({ code }: { code: string }) => {
   const pathname = usePathname();
+  const role: "teacher" | "student" = "teacher"
   return (
     <nav className="mt-4 flex gap-4 items-center">
       <Link

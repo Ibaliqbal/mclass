@@ -1,14 +1,15 @@
 import NavigationClass from "@/components/class/navigation-class";
 import { Separator } from "@/components/ui/separator";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
-const LayoutClass = ({
-  code,
+const layout = ({
   children,
+  params,
 }: {
-  code: string;
+  params: { code: string };
   children: ReactNode;
 }) => {
+  const role: string = "teacher";
   return (
     <div className="w-full pt-5 pb-10">
       <div
@@ -21,15 +22,16 @@ const LayoutClass = ({
         }}
       >
         <h1 className="font-semibold text-4xl">PRE_XII EI 2</h1>
-        <h4 className="mt-2 text-lg">Tika Setiawati</h4>
+        {role === "teacher" ? <h2 className="text-sm">Code: Hgaui19</h2> : null}
+        <h4 className="mt-3 text-lg">Tika Setiawati</h4>
         <p>Mata Pelajaran : Rekayasa Perangkat Lunak</p>
         <p>Ruang : 302</p>
       </div>
       <Separator className="mt-3" />
-      <NavigationClass code={code} />
+      <NavigationClass code={params.code} />
       {children}
     </div>
   );
 };
 
-export default LayoutClass;
+export default layout;

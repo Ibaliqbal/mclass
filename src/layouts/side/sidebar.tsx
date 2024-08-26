@@ -1,3 +1,4 @@
+import ButtonCraeteClass from "@/components/button/button-create-class";
 import ButtonJoinClass from "@/components/button/button-join-class";
 import LinkActive from "@/components/side/link-active";
 import ListClass from "@/components/side/list-calss";
@@ -12,6 +13,7 @@ import {
 } from "react-icons/io5";
 
 const Sidebar = () => {
+  const role: "teacher" | "student" = "teacher";
   return (
     <aside className="col-span-1 py-4 flex flex-col gap-3">
       <LinkActive
@@ -31,7 +33,7 @@ const Sidebar = () => {
         active={<IoSettings className="text-2xl" />}
         nonActive={<IoSettingsOutline className="text-2xl" />}
       />
-      <ButtonJoinClass />
+      {role !== "teacher" ? <ButtonCraeteClass /> : <ButtonJoinClass />}
       <div className="flex flex-col items-center px-3 w-full">
         <Calendar />
         <p className="text-center text-xs">

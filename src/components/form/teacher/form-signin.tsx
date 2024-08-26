@@ -36,10 +36,10 @@ const FormSignIn = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Email</FormLabel>
+              <FormLabel className="md:text-lg text-sm">Email</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your email.."
                   {...field}
                 />
@@ -53,10 +53,10 @@ const FormSignIn = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-lg">Password</FormLabel>
+              <FormLabel className="md:text-lg text-sm">Password</FormLabel>
               <FormControl>
                 <Input
-                  className="text-xl py-7 border-2 border-slate-700 focus:outline-none"
+                  className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your password.."
                   {...field}
                 />
