@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1724732943495,
+      "tag": "20240827042903_public_thundra",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724749579749,
+      "tag": "20240827090619_wet_firestar",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724845880544,
+      "tag": "20240828115120_careful_photon",
+      "breakpoints": true
+    }
+  ]
+}

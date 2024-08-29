@@ -15,7 +15,7 @@ import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { signInTSchema, TSignInT } from "@/types/teacher";
 
-const FormSignIn = () => {
+const FormSignIn = ({ callbackUrl }: { callbackUrl: string }) => {
   const form = useForm<TSignInT>({
     resolver: zodResolver(signInTSchema),
     defaultValues: {
@@ -30,7 +30,10 @@ const FormSignIn = () => {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="email"

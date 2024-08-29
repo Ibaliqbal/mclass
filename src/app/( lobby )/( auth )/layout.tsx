@@ -13,6 +13,7 @@ const layout = ({ children }: { children: ReactNode }) => {
             src={"/auth.jpg"}
             alt="Auth"
             fill
+            loading="lazy"
             className="w-full h-full object-cover object-center rounded-lg"
           />
         </figure>

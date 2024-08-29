@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -14,6 +13,9 @@ import {
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { registerTSchema, TRegisT } from "@/types/teacher";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { userService } from "@/services/user";
 
 const FormRegis = () => {
   const form = useForm<TRegisT>({
@@ -25,13 +27,34 @@ const FormRegis = () => {
     },
   });
 
-  const onSubmit = (data: TRegisT) => {
-    console.log(data)
-  }
+  const onSubmit = async (data: TRegisT) => {
+    try {
+      // Call API to register the student
+
+      await userService.create({
+        ...data,
+        role: "Teacher",
+      });
+
+      toast.success("Registration successful!");
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const res = axiosError.response?.data as {
+        message: string;
+        statusCode: number;
+      };
+      toast.error(res.message);
+    } finally {
+      form.reset();
+    }
+  };
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FormField
           control={form.control}
           name="name"
@@ -83,8 +106,13 @@ const FormRegis = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="py-6 self-start" variant="primary">
-          Register
+        <Button
+          type="submit"
+          className="py-6 self-start"
+          variant="primary"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Loading..." : "Register"}
         </Button>
       </form>
     </Form>

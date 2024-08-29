@@ -2,9 +2,34 @@ import CardFile from "@/components/card/card-file";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import LayoutSubmission from "@/layouts/submission/layout-submission";
+import { taskService } from "@/services/task";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { and, eq } from "drizzle-orm";
+import { DoneTaskTable } from "@/lib/db/schema";
 
-const page = ({ params }: { params: { code: string; id: string } }) => {
-  console.log(params.id);
+const page = async ({ params }: { params: { code: string; id: string } }) => {
+  let status: "done" | "assigned" | "missing" = "assigned";
+  const today = new Date();
+  const session = await auth();
+  const { data } = await taskService.detail(params.code, params.id);
+
+  const doneTask = await db.query.DoneTaskTable.findFirst({
+    where: and(
+      eq(DoneTaskTable.student_id, session?.user.id as string),
+      eq(DoneTaskTable.submissionId, data.data.id)
+    ),
+  });
+
+  if (doneTask) {
+    status = "done";
+  }
+
+  if (!doneTask && today.getTime() > new Date(data.data.deadline).getTime()) {
+    status = "missing";
+  }
+
+  console.log(status);
 
   return (
     <LayoutSubmission

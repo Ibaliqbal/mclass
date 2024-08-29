@@ -7,10 +7,13 @@ export const createClassSchema = z.object({
   subject: z
     .string({ message: "Subject class is required" })
     .min(3, { message: "Subject class minimun for 3 characters" }),
-  teacher_name: z
-    .string({ message: "Teacher name is required" })
-    .min(3, { message: "Teacher name minimun for 3 characters" }),
   room: z.string(),
 });
+
+export const joinClassSchema = z.object({
+  code: z.string().min(7, { message: "Code class minimun for 3 characters" }),
+});
+
+export type TJoinClass = z.infer<typeof joinClassSchema>;
 
 export type TCreateClass = z.infer<typeof createClassSchema>;

@@ -9,11 +9,13 @@ const LayoutAuth = ({
   type,
   role,
   textMore,
+  callbackUrl,
 }: {
   children: ReactNode;
   type: "signin" | "register";
   role: "teacher" | "student";
   textMore: string;
+  callbackUrl: string;
 }) => {
   return (
     <AnimatePresence mode="wait">
@@ -39,7 +41,9 @@ const LayoutAuth = ({
               <div className="flex flex-col gap-3 items-center">
                 <Separator />
                 <Link
-                  href={`/signin/${role === "student" ? "teacher" : "student"}`}
+                  href={`/signin/${
+                    role === "student" ? "teacher" : "student"
+                  }?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                   className="hover:underline hover:underline-offset-2"
                 >
                   Login as a {role === "student" ? "Teacher" : "Student"}

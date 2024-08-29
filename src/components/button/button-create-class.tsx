@@ -15,6 +15,9 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { classService } from "@/services/class";
 
 const ButtonCraeteClass = () => {
   const [open, setOpen] = useState(false);
@@ -22,8 +25,17 @@ const ButtonCraeteClass = () => {
     resolver: zodResolver(createClassSchema),
   });
 
-  const onSubmit = (data: TCreateClass) => {
-    console.log(data);
+  const onSubmit = async (data: TCreateClass) => {
+    try {
+      const res = await classService.create(data);
+
+      toast.success(res.data?.message);
+    } catch (error) {
+      const axiosErr = error as AxiosError;
+      console.log(axiosErr);
+    } finally {
+      form.reset();
+    }
   };
 
   return (
@@ -71,23 +83,6 @@ const ButtonCraeteClass = () => {
             />
             <FormField
               control={form.control}
-              name="teacher_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-lg">Teacher Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="text-lg py-7 border-2 border-slate-700 focus:outline-none"
-                      placeholder="Enter name teacher..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="subject"
               render={({ field }) => (
                 <FormItem>
@@ -126,11 +121,16 @@ const ButtonCraeteClass = () => {
                 variant="logout"
                 type="button"
                 className="py-6"
+                disabled={form.formState.isSubmitting}
               >
                 Cancel
               </Button>
-              <Button type="submit" className="py-6">
-                Create
+              <Button
+                type="submit"
+                className="py-6"
+                disabled={form.formState.isSubmitting}
+              >
+                {form.formState.isSubmitting ? "Loading..." : "Create"}
               </Button>
             </div>
           </motion.form>

@@ -1,8 +1,10 @@
 import React from "react";
-import { Button } from "../ui/button";
 import Link from "next/link";
+import ButtonAuth from "../button/button-auth";
+import { auth } from "@/lib/auth";
 
-const NavbarHome = () => {
+const NavbarHome = async () => {
+  const session = await auth();
   return (
     <nav className="w-full px-4 py-5 flex justify-between items-center sticky top-0 z-[50]">
       <h1 className="italic text-xl font-bold">
@@ -15,11 +17,7 @@ const NavbarHome = () => {
         >
           About us
         </Link>
-        <Link href={"/signin/student"}>
-          <Button variant="secondary" size="lg">
-            Login
-          </Button>
-        </Link>
+        <ButtonAuth session={session} />
       </div>
     </nav>
   );

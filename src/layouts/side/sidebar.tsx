@@ -4,6 +4,7 @@ import LinkActive from "@/components/side/link-active";
 import ListClass from "@/components/side/list-calss";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
+import { auth } from "@/lib/auth";
 import React from "react";
 import {
   IoHomeOutline,
@@ -12,8 +13,8 @@ import {
   IoSettings,
 } from "react-icons/io5";
 
-const Sidebar = () => {
-  const role: "teacher" | "student" = "teacher";
+const Sidebar = async () => {
+  const session = await auth();
   return (
     <aside className="col-span-1 py-4 flex flex-col gap-3">
       <LinkActive
@@ -33,7 +34,11 @@ const Sidebar = () => {
         active={<IoSettings className="text-2xl" />}
         nonActive={<IoSettingsOutline className="text-2xl" />}
       />
-      {role !== "teacher" ? <ButtonCraeteClass /> : <ButtonJoinClass />}
+      {session && session.user.role === "Teacher" ? (
+        <ButtonCraeteClass />
+      ) : (
+        <ButtonJoinClass />
+      )}
       <div className="flex flex-col items-center px-3 w-full">
         <Calendar />
         <p className="text-center text-xs">

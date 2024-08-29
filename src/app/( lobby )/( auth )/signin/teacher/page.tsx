@@ -2,12 +2,18 @@ import FormSignIn from "@/components/form/teacher/form-signin";
 import LayoutAuth from "@/layouts/auth/layout-auth";
 import React from "react";
 
-const page = () => {
+const page = ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const callbackUrl = searchParams.callbackUrl || "/";
   return (
     <LayoutAuth
       role="teacher"
       type="register"
       textMore="Don`t hava an account ? Sign up"
+      callbackUrl={callbackUrl as string}
     >
       <div className="flex flex-col gap-4">
         <h1 className="md:text-2xl font-semibold text-center max-w-xl">
@@ -17,7 +23,7 @@ const page = () => {
           </span>{" "}
           ✏️ Sign In to Continue Your Impact!
         </h1>
-        <FormSignIn />
+        <FormSignIn callbackUrl={callbackUrl as string} />
       </div>
     </LayoutAuth>
   );

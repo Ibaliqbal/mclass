@@ -2,10 +2,6 @@ import { z } from "zod";
 
 export const signInSSchema = z.object({
   email: z.string().email(),
-  nisn: z
-    .string()
-    .min(16, { message: "Minimun length of NISN 16 char" })
-    .max(16),
   password: z.string().min(8).max(20),
 });
 

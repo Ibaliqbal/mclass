@@ -12,9 +12,11 @@ import { useRouter } from "next/navigation";
 const SelectTask = ({
   value,
   type,
+  listClass,
 }: {
   value: string;
   type: "missing" | "not-turned-in" | "turned-in";
+  listClass: Array<{ code: string; className: string }>;
 }) => {
   const router = useRouter();
 
@@ -29,14 +31,11 @@ const SelectTask = ({
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="all">All Class</SelectItem>
-        <SelectItem value="msk">Moscow Time (MSK)</SelectItem>
-        <SelectItem value="ist">India Standard Time (IST)</SelectItem>
-        <SelectItem value="cst_china">China Standard Time (CST)</SelectItem>
-        <SelectItem value="jst">Japan Standard Time (JST)</SelectItem>
-        <SelectItem value="kst">Korea Standard Time (KST)</SelectItem>
-        <SelectItem value="ist_indonesia">
-          Indonesia Central Standard Time (WITA)
-        </SelectItem>
+        {listClass.map((list) => (
+          <SelectItem key={list.code} value={list.code}>
+            {list.className}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

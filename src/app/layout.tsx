@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import TopLoader from "@/components/loader/top-loader";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
+import Provider from "../provider/index";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
           <TopLoader />
-          {children}
+          <Provider>{children}</Provider>
           <Toaster
             position="bottom-right"
             reverseOrder

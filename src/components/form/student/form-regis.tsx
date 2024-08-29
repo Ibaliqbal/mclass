@@ -2,7 +2,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -14,6 +13,9 @@ import {
 import { Input } from "../../ui/input";
 import { Button } from "../../ui/button";
 import { registerSSchema, TRegisS } from "@/types/student";
+import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import { userService } from "@/services/user";
 
 const FormRegis = () => {
   const form = useForm<TRegisS>({
@@ -22,12 +24,37 @@ const FormRegis = () => {
       password: "",
       email: "",
       name: "",
-      nisn: "",
     },
   });
 
-  const onSubmit = (data: TRegisS) => {
-    console.log(data);
+  const onSubmit = async (data: TRegisS) => {
+    try {
+      // Call API to register the student
+
+      const nisnValue = Number(data.nisn);
+      if (isNaN(nisnValue)) {
+        toast.error("NISN must be a valid number");
+        return;
+      }
+
+      await userService.create({
+        ...data,
+        role: "Student",
+      });
+
+      toast.success("Registration successful!");
+
+      return;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const res = axiosError.response?.data as {
+        message: string;
+        statusCode: number;
+      };
+      toast.error(res.message);
+    } finally {
+      form.reset();
+    }
   };
 
   return (
@@ -104,8 +131,13 @@ const FormRegis = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="py-6 self-start" variant="primary">
-          Register
+        <Button
+          type="submit"
+          className="py-6 self-start"
+          variant="primary"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Loading..." : "Register"}
         </Button>
       </form>
     </Form>
