@@ -239,7 +239,7 @@ export const GET = auth(async (req) => {
       classCode: tasks?.code,
       isDone: doneTasks.some((task) => task.submissionId === mission.id)
         ? "done"
-        : new Date(mission.deadline as Date).getTime() > new Date().getTime()
+        : new Date(mission.deadline).getTime() > new Date().getTime()
         ? "assigned"
         : "missing",
     };
