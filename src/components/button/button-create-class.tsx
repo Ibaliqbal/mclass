@@ -30,6 +30,7 @@ const ButtonCraeteClass = () => {
       const res = await classService.create(data);
 
       toast.success(res.data?.message);
+      location.reload();
     } catch (error) {
       const axiosErr = error as AxiosError;
       console.log(axiosErr);

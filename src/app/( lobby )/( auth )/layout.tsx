@@ -14,6 +14,7 @@ const layout = ({ children }: { children: ReactNode }) => {
             alt="Auth"
             fill
             loading="lazy"
+            sizes="100%"
             className="w-full h-full object-cover object-center rounded-lg"
           />
         </figure>

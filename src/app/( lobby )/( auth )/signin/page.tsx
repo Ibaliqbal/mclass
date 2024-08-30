@@ -1,29 +1,22 @@
-import FormSignIn from "@/components/form/student/form-signin";
+import FormSignIn from "@/components/form/form-signin";
 import LayoutAuth from "@/layouts/auth/layout-auth";
-import React from "react";
 
-const page = ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const callbackUrl = searchParams.callbackUrl || "/";
+const page = () => {
   return (
     <LayoutAuth
       role="student"
       type="register"
       textMore="Don`t hava an account ? Sign up"
-      callbackUrl={callbackUrl as string}
     >
       <div className="flex flex-col gap-4">
         <h1 className="md:text-2xl text-xl font-semibold text-center max-w-xl">
-          🎉 Welcome Back,{" "}
+          🎉 Selamat Datang Kembali,{" "}
           <span className="bg-green-300 dark:bg-gradient-to-br from-emerald-300 to-green-500 px-2 py-1 text-2xl md:text-3xl">
-            Future Leaders!
+            Para Pahlawan Masa Depan!
           </span>{" "}
-          🎓 Sign In to Continue Your Journey!
+          🎓 Ayo Masuk dan Siapkan Diri untuk Petualangan Hebat Bersama Kami!
         </h1>
-        <FormSignIn callbackUrl={callbackUrl as string} />
+        <FormSignIn />
       </div>
     </LayoutAuth>
   );

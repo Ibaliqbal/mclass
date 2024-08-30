@@ -37,7 +37,7 @@ const CardClass = ({ i }: { i: number }) => {
             className="object-cover object-center"
           />
         </Avatar>
-        <Link href={"/c/340sAss"}>
+        <Link href={"/c/79ylXzd"}>
           <h1 className="text-xl font-semibold hover:underline hover:underline-offset-4 line-clamp-1">
             PRE_XII EI2
           </h1>
@@ -49,7 +49,7 @@ const CardClass = ({ i }: { i: number }) => {
           </p>
         </Link>
         <Separator className="mt-3" />
-        <Link href={"/c/340sAss/t"}>
+        <Link href={"/c/79ylXzd/t"}>
           <FaFolderOpen className="text-lg mt-3 cursor-pointer" />
         </Link>
       </div>

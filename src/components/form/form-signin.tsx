@@ -9,14 +9,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
+} from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { signInSSchema, TSignInS } from "@/types/student";
 import { useRouter } from "next/navigation";
 import { login } from "@/actions/auth";
 
-const FormSignIn = ({ callbackUrl }: { callbackUrl: string }) => {
+const FormSignIn = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const form = useForm<TSignInS>({

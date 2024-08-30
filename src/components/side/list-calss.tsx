@@ -65,7 +65,7 @@ const ListClass = ({ session }: { session: Session | null }) => {
                   key={i}
                 >
                   <Link
-                    href={"/c/340sAss"}
+                    href={"/c/79ylXzd"}
                     className="flex items-center gap-3 py-2 border border-gray-500 rounded-lg pl-2 group"
                   >
                     <Image

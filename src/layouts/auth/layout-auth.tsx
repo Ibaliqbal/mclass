@@ -9,13 +9,11 @@ const LayoutAuth = ({
   type,
   role,
   textMore,
-  callbackUrl,
 }: {
   children: ReactNode;
   type: "signin" | "register";
   role: "teacher" | "student";
   textMore: string;
-  callbackUrl: string;
 }) => {
   return (
     <AnimatePresence mode="wait">
@@ -29,27 +27,32 @@ const LayoutAuth = ({
       >
         <div className="flex flex-col gap-4 w-full">
           {children}
-          <div className="items-center flex flex-col gap-3">
-            <p>
-              {textMore}{" "}
-              <Link href={`/${type}/${role}`} className="text-blue-600">
-                here
-              </Link>
-            </p>
-
-            {type === "register" ? (
-              <div className="flex flex-col gap-3 items-center">
-                <Separator />
+          <div className="items-center justify-center flex ">
+            <div className="flex flex-col gap-4 items-center w-fit">
+              <p>
+                {textMore}{" "}
                 <Link
-                  href={`/signin/${
-                    role === "student" ? "teacher" : "student"
-                  }?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-                  className="hover:underline hover:underline-offset-2"
+                  href={`/${type}${type === "register" ? `/${role}` : ""}`}
+                  className="text-blue-600"
                 >
-                  Login as a {role === "student" ? "Teacher" : "Student"}
+                  here
                 </Link>
-              </div>
-            ) : null}
+              </p>
+              <Separator />
+              {type === "signin" ? (
+                <p>
+                  Register as{" "}
+                  <Link
+                    href={`/register/${
+                      role === "student" ? "teacher" : "student"
+                    }`}
+                    className="text-blue-600"
+                  >
+                    {role === "student" ? "Teacher" : "Student"}
+                  </Link>
+                </p>
+              ) : null}
+            </div>
           </div>
         </div>
       </motion.div>

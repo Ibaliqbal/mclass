@@ -12,12 +12,12 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
   let status: "done" | "assigned" | "missing" = "assigned";
   const today = new Date();
   const session = await auth();
-  const { data } = await taskService.detail(params.code, params.id);
+  const { data } = (await taskService.detail(params.code, params.id)).data;
 
   const doneTask = await db.query.DoneTaskTable.findFirst({
     where: and(
       eq(DoneTaskTable.student_id, session?.user.id as string),
-      eq(DoneTaskTable.submissionId, data.data.id)
+      eq(DoneTaskTable.submissionId, data.id)
     ),
   });
 
@@ -25,7 +25,7 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
     status = "done";
   }
 
-  if (!doneTask && today.getTime() > new Date(data.data.deadline).getTime()) {
+  if (!doneTask && today.getTime() > new Date(data.deadline).getTime()) {
     status = "missing";
   }
 

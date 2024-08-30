@@ -33,6 +33,8 @@ const ButtonJoinClass = () => {
     try {
       const res = await classService.join(data);
       if (res.status !== 200) return toast.error(res.data.message);
+      
+      location.reload();
       toast.success(res.data.message);
     } catch (error) {
       const axiosErr = error as AxiosError;

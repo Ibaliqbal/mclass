@@ -21,7 +21,7 @@ const ButtonAuth = ({ session }: Props) => {
       </Button>
     </form>
   ) : (
-    <Link href={"/signin/student"}>
+    <Link href={"/signin"}>
       <Button variant="secondary" size="lg" type="button">
         Login
       </Button>

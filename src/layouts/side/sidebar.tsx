@@ -15,8 +15,9 @@ import {
 
 const Sidebar = async () => {
   const session = await auth();
+
   return (
-    <aside className="col-span-1 py-4 flex flex-col gap-3">
+    <aside className="col-span-1 py-4 flex flex-col gap-4">
       <LinkActive
         className="text-lg flex items-center gap-3 font-semibold px-3"
         href="/"
@@ -24,9 +25,13 @@ const Sidebar = async () => {
         active={<IoHome className="text-2xl" />}
         nonActive={<IoHomeOutline className="text-2xl" />}
       />
-      <Separator />
-      {session ? <ListClass session={session} /> : null}
-      <Separator />
+      {session ? (
+        <>
+          <Separator />
+          <ListClass session={session} />
+          <Separator />
+        </>
+      ) : null}
       <LinkActive
         href="/settings"
         className="text-lg flex items-center gap-3 font-semibold px-3"
@@ -34,11 +39,13 @@ const Sidebar = async () => {
         active={<IoSettings className="text-2xl" />}
         nonActive={<IoSettingsOutline className="text-2xl" />}
       />
-      {session && session.user.role === "Teacher" ? (
-        <ButtonCraeteClass />
-      ) : (
-        <ButtonJoinClass />
-      )}
+      {session ? (
+        session.user.role === "Teacher" ? (
+          <ButtonCraeteClass />
+        ) : (
+          <ButtonJoinClass />
+        )
+      ) : null}
       <div className="flex flex-col items-center px-3 w-full">
         <Calendar />
         <p className="text-center text-xs">

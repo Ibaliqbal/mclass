@@ -3,12 +3,12 @@ import { SubmissionTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
-  const url = new URL(req.url);
-  const id = url.pathname.split("/").pop();
-
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { code: string; id: string } }
+) {
   const task = await db.query.SubmissionTable.findFirst({
-    where: eq(SubmissionTable.id, id as string),
+    where: eq(SubmissionTable.id, params.id),
     with: {
       doneTask: {
         columns: {

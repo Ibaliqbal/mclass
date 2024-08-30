@@ -2,6 +2,7 @@ import { relations, sql } from "drizzle-orm";
 import {
   bigint,
   boolean,
+  date,
   index,
   integer,
   jsonb,
@@ -105,7 +106,7 @@ export const SubmissionTable = pgTable(
     files: jsonb("files")
       .array()
       .default(sql`ARRAY[]::jsonb[]`),
-    deadline: timestamp("deadline"),
+    deadline: date("deadline"),
     type: SubmissionType("submissionType").default("material").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),

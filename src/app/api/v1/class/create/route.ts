@@ -1,10 +1,23 @@
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { ClassTable } from "@/lib/db/schema";
 import { generateRandomCode } from "@/utils/helper";
-import { NextRequest } from "next/server";
 
-export async function POST(req: NextRequest) {
-  const idTeacherExample = "708a571d-354b-475d-b0b4-495155ed89f3";
+export const POST = auth(async (req) => {
+  const session = req.auth;
+
+  if (!session)
+    return Response.json(
+      { statusCode: 401, message: "Unautorized" },
+      { status: 401 }
+    );
+
+  if (session.user.role !== "Teacher")
+    return Response.json(
+      { statusCode: 400, message: "Invalid role" },
+      { status: 400 }
+    );
+
   const {
     class_name,
     room,
@@ -27,7 +40,7 @@ export async function POST(req: NextRequest) {
       7,
       codes.map((code) => code.code)
     ),
-    instructorId: idTeacherExample,
+    instructorId: session.user.id,
     room,
     subject,
   });
@@ -36,4 +49,4 @@ export async function POST(req: NextRequest) {
     { message: "Success create class", statusCode: 201 },
     { status: 201 }
   );
-}
+});
