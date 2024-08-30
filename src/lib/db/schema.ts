@@ -106,7 +106,7 @@ export const SubmissionTable = pgTable(
     files: jsonb("files")
       .array()
       .default(sql`ARRAY[]::jsonb[]`),
-    deadline: date("deadline"),
+    deadline: date("deadline").notNull().defaultNow(),
     type: SubmissionType("submissionType").default("material").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
     updatedAt: timestamp("updated_at").defaultNow(),

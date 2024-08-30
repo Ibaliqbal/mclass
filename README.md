@@ -88,4 +88,4 @@ After logging in, users can:
 
 MCLASS - Empowering Education Through Technology
 
-<div align="center">Don't forget to gift ⭐for this repo, Thnak y'all</div>
+<div align="center">Don't forget to gift ⭐for this repo, Thanks y'all 😃</div>
