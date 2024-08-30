@@ -14,7 +14,6 @@ import {
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "next-auth/adapters";
 
 // All enum table
 export const UserRole = pgEnum("userRole", ["Student", "Teacher"]);

@@ -25,7 +25,7 @@ const Sidebar = async () => {
         nonActive={<IoHomeOutline className="text-2xl" />}
       />
       <Separator />
-      <ListClass />
+      {session ? <ListClass session={session} /> : null}
       <Separator />
       <LinkActive
         href="/settings"

@@ -31,3 +31,18 @@ body::-webkit-scrollbar-thumb:hover,
 textarea::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
+
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid;
+  animation: l1 1s infinite;
+  @apply dark:border-y-white dark:border-x-[#121212] border-y-[#121212] border-x-white ;
+}
+
+@keyframes l1 {
+  to {
+    transform: rotate(0.5turn);
+  }
+}

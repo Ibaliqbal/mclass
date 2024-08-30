@@ -1,13 +1,61 @@
 "use client";
+import { FaCheck } from "react-icons/fa";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useTheme } from "next-themes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import SelectTheme from "@/components/settings/select-theme";
+import { useForm } from "react-hook-form";
+import { TResetPasswordT } from "@/types/user";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resetPasswordSchema } from "../../types/user";
+import {
+  Form,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { useState } from "react";
+import { userService } from "@/services/user";
+import { AxiosError } from "axios";
+
 const SettingsView = () => {
   const { setTheme, theme } = useTheme();
+  const [error, setError] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const form = useForm<TResetPasswordT>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: {
+      oldPassword: "",
+      newPassword: "",
+    },
+  });
+
+  const onSubmit = async (data: TResetPasswordT) => {
+    try {
+      setError("");
+      // Reset password logic goes here
+      await userService.update(data);
+
+      form.reset();
+
+      setIsSuccess(true);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.log(axiosError);
+      const data = axiosError.response?.data as {
+        statusCode: number;
+        message: string;
+      };
+      setError(data.message);
+      form.resetField("oldPassword", {
+        defaultValue: "",
+      });
+    }
+  };
 
   return (
     <div className="w-full mt-4 pt-4 pb-10 container max-w-4xl flex flex-col gap-4">
@@ -41,31 +89,70 @@ const SettingsView = () => {
             />
           </div>
         </div>
-        <div className="mt-4 flex gap-3 flex-col">
-          <h3>Change password</h3>
+        <Form {...form}>
+          <form
+            className="mt-4 flex gap-3 flex-col"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <h3>Change password</h3>
 
-          <div className="flex flex-col gap-3 w-[40%]">
-            <Label htmlFor="old-password">Old Password</Label>
-            <Input
-              type="password"
-              id="old-password"
-              placeholder="Input your old password..."
-              className="py-5"
+            {error ? <p className="text-red-600">{error}</p> : null}
+            {isSuccess ? (
+              <Alert variant="success">
+                <FaCheck className="h-4 w-4" />
+                <AlertTitle>Success</AlertTitle>
+                <AlertDescription>
+                  Change password successfully
+                </AlertDescription>
+              </Alert>
+            ) : null}
+            <FormField
+              control={form.control}
+              name="oldPassword"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-3 w-[40%]">
+                  <Label htmlFor={field.name}>Old Password</Label>
+                  <Input
+                    type="password"
+                    placeholder="Input your old password..."
+                    className="py-5"
+                    id={field.name}
+                    {...field}
+                  />
+                  <FormMessage />
+                  <FormDescription>Masukkan kata sandi lama mu</FormDescription>
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="flex flex-col gap-3 w-[40%]">
-            <Label htmlFor="new-password">New Password</Label>
-            <Input
-              type="password"
-              id="new-password"
-              placeholder="Input your new password..."
-              className="py-5"
+            <FormField
+              control={form.control}
+              name="newPassword"
+              render={({ field }) => (
+                <FormItem className="flex flex-col gap-3 w-[40%]">
+                  <Label htmlFor={field.name}>New Password</Label>
+                  <Input
+                    type="password"
+                    placeholder="Input your new password..."
+                    className="py-5"
+                    id={field.name}
+                    {...field}
+                  />
+                  <FormMessage />
+                  <FormDescription>Masukkan kata sandi baru mu</FormDescription>
+                </FormItem>
+              )}
             />
-          </div>
-          <Button variant="secondary" className="self-start" size="lg">
-            Reset
-          </Button>
-        </div>
+            <Button
+              variant="secondary"
+              type="submit"
+              className="self-start"
+              size="lg"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "Resetting..." : "Reset"}
+            </Button>
+          </form>
+        </Form>
       </div>
       <div className="px-3 py-4 border border-gray-500 dark:border-gray-300 rounded-md">
         <h1 className="text-2xl">General Setting</h1>

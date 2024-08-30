@@ -4,7 +4,6 @@ import { db } from "./db";
 import { UserTable } from "./db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   session: {
@@ -53,10 +52,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (!auth && pathname === "settings") {
         return false;
       }
-      request.headers.set(
-        "Authorization",
-        `Bearer ${auth?.accessToken as string}`
-      );
       return true;
     },
     async jwt({ token, user, account }) {
@@ -86,16 +81,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           session.user.role = token.role as string;
         }
 
-        session.user.id = token.id
+        session.user.id = token.id;
         session.user.name = token.name;
         session.user.image = token.avatar as string;
         session.user.email = token.email;
       }
-      const accessToken = jwt.sign(token, process.env.NEXTAUTH_SECRET || "", {
-        algorithm: "HS256",
-      });
-
-      session.accessToken = accessToken;
 
       return session;
     },
@@ -108,6 +98,5 @@ declare module "next-auth" {
       id: string;
       role: "Student" | "Teacher";
     } & DefaultSession["user"];
-    accessToken?: string;
   }
 }

@@ -1,7 +1,7 @@
 import instance from "@/lib/axios/instance";
 
 export const userService = {
-  update: () => instance.put("/user"),
+  update: (data: any) => instance.put("/user", data),
   create: (data: {
     name: string;
     email: string;

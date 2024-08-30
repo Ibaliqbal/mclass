@@ -1,10 +1,12 @@
-
 import CardTask from "@/components/card/card-task";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { auth } from "@/lib/auth";
+import ClassTaskStudent from "@/views/class/class-task-student";
 import React from "react";
 
-const page = ({ params }: { params: { code: string } }) => {
+const page = async ({ params }: { params: { code: string } }) => {
+  const session = await auth()
   return (
     <div className="container mt-4 max-w-4xl pt-4 pb-10 flex flex-col gap-4">
       <div className="flex gap-3 items-center">
@@ -20,11 +22,7 @@ const page = ({ params }: { params: { code: string } }) => {
         <h1 className="text-2xl">Iqbal Muthahhary</h1>
       </div>
       <Separator />
-      <div className="flex flex-col gap-4 divide-y-2 divide-gray-500">
-        {Array.from({ length: 10 }).map((_, i) => (
-          <CardTask key={i} index={i} />
-        ))}
-      </div>
+      <ClassTaskStudent code={params.code} />
     </div>
   );
 };

@@ -29,8 +29,6 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
     status = "missing";
   }
 
-  console.log(status);
-
   return (
     <LayoutSubmission
       title="Tugas ke 10"
