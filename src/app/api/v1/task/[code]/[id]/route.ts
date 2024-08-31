@@ -15,12 +15,18 @@ export async function GET(
           student_id: true,
         },
       },
+      class: {
+        columns: {
+          students: true,
+        },
+      },
     },
   });
 
   const data = {
     ...task,
     doneTask: task?.doneTask.map((done) => done.student_id),
+    class: task?.class.students,
   };
 
   return Response.json(

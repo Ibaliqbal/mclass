@@ -36,6 +36,8 @@ import { taskService } from "@/services/task";
 import { useState } from "react";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
+import { UploadDropzone } from "@/utils/uploadthing";
+import CardFile from "@/components/card/card-file";
 
 const ClassCreateView = ({ code }: { code: string }) => {
   const [success, setSuccess] = useState("");
@@ -59,7 +61,6 @@ const ClassCreateView = ({ code }: { code: string }) => {
         statusCode: number;
         message: string;
       };
-      console.log(error);
       toast.error(data.message);
     } finally {
       form.reset();
@@ -75,9 +76,9 @@ const ClassCreateView = ({ code }: { code: string }) => {
         <h1 className="text-xl font-semibold mb-3">Create new task</h1>
         {success ? (
           <Alert variant="success" className="mb-2">
-            <FaCheck className="h-4 w-4" />
-            <AlertTitle>Success</AlertTitle>
-            <AlertDescription>{success}</AlertDescription>
+            <FaCheck className="h-5 w-5" />
+            <AlertTitle className="text-lg">Success</AlertTitle>
+            <AlertDescription className="text-sm">{success}</AlertDescription>
           </Alert>
         ) : null}
         <FormField
@@ -187,6 +188,9 @@ const ClassCreateView = ({ code }: { code: string }) => {
                       selected={field.value}
                       onSelect={field.onChange}
                       initialFocus
+                      disabled={(date) =>
+                        date < new Date() || date < new Date("1900-01-01")
+                      }
                     />
                   </PopoverContent>
                 </Popover>
@@ -198,6 +202,71 @@ const ClassCreateView = ({ code }: { code: string }) => {
             )}
           />
         </div>
+        <FormField
+          control={form.control}
+          name="files"
+          render={({ field }) => (
+            <FormItem className="flex gap-2 flex-col">
+              <FormLabel className="md:text-lg text-sm">Files</FormLabel>
+              <FormControl>
+                <div className="flex flex-col gap-4">
+                  <div className="grid grid-cols-4 gap-3">
+                    {field.value &&
+                      field.value?.map((file, i) => (
+                        <CardFile
+                          key={file.key}
+                          index={i}
+                          icon="delete"
+                          type="pdf"
+                        />
+                      ))}
+                  </div>
+                  <div className="rounded-xl border dark:border-white border-black">
+                    <UploadDropzone
+                      endpoint="fileUploader"
+                      disabled={form.formState.isSubmitting}
+                      appearance={{
+                        allowedContent: "hidden",
+                      }}
+                      onClientUploadComplete={(res) => {
+                        field.value
+                          ? field.onChange([
+                              ...field.value,
+                              ...res.map((data) => ({
+                                key: data.key,
+                                name: data.name,
+                                url: data.url,
+                                type:
+                                  data.type.split("/")[0] === "image"
+                                    ? "image"
+                                    : data.key.split(".")[1],
+                              })),
+                            ])
+                          : field.onChange([
+                              ...res.map((data) => ({
+                                key: data.key,
+                                name: data.name,
+                                url: data.url,
+                                type:
+                                  data.type.split("/")[0] === "image"
+                                    ? "image"
+                                    : data.key.split(".")[1],
+                              })),
+                            ]);
+
+                        console.log(res);
+                      }}
+                    />
+                  </div>
+                </div>
+              </FormControl>
+              <FormMessage />
+              <FormDescription className="text-sm text-gray-500">
+                Attach any relevant files for this task.
+              </FormDescription>{" "}
+            </FormItem>
+          )}
+        />
         <Button
           variant="secondary"
           type="submit"

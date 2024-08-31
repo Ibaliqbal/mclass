@@ -9,6 +9,7 @@ import { MdOutlineQuiz } from "react-icons/md";
 import FormClassComment from "@/components/form/submission/form-class-comment";
 import { SlBookOpen } from "react-icons/sl";
 import { toast } from "react-hot-toast";
+import ListAlreadySubmitTask from "@/components/class/list-already-submit-task";
 
 type Props = {
   type: "material" | "task" | "test";
@@ -17,6 +18,11 @@ type Props = {
   dateCreated: string;
   deadline: string;
   children: ReactNode;
+  status: "done" | "assigned" | "missing";
+  role: "Teacher" | "Student";
+  id: string;
+  students: string[];
+  doneTask: string[];
 };
 
 const LayoutSubmission = ({
@@ -26,6 +32,11 @@ const LayoutSubmission = ({
   dateCreated,
   deadline,
   children,
+  status,
+  role,
+  id,
+  students,
+  doneTask,
 }: Props) => {
   return (
     <div
@@ -89,7 +100,13 @@ const LayoutSubmission = ({
           </div>
         </div>
       </section>
-      {type !== "material" ? <FormSubmitTask /> : null}
+      {type !== "material" ? (
+        role === "Student" ? (
+          <FormSubmitTask status={status} />
+        ) : (
+          <ListAlreadySubmitTask students={students} alreadyDone={doneTask} />
+        )
+      ) : null}
     </div>
   );
 };

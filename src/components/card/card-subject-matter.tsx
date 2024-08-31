@@ -20,7 +20,7 @@ const CardSubjectMatter = ({ index }: { index: number }) => {
       className="px-5 py-4 w-full flex justify-between items-center border-[1px] border-gray-300 rounded-md"
     >
       <Link
-        href="/c/79ylXzd/s/ae1cb96f-9c94-4d88-9562-8e5e4ecc33d9"
+        href="/c/79ylXzd/s/e5316a16-bbf2-4442-a43a-f5addee85b7b"
         className="flex items-center gap-4"
       >
         <div className="p-4 bg-sky-500 rounded-full">

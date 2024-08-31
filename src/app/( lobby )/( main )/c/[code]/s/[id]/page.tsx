@@ -7,6 +7,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { and, eq } from "drizzle-orm";
 import { DoneTaskTable } from "@/lib/db/schema";
+import { format } from "date-fns";
+import Image from "next/image";
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
   let status: "done" | "assigned" | "missing" = "assigned";
@@ -33,9 +35,16 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
     <LayoutSubmission
       title="Tugas ke 10"
       dateCreated="Tika Setiawati ~ 3 Januri 2020"
-      deadline="20 Februari 2020"
+      deadline={
+        format(new Date(data.deadline), "dd MMMM yyyy") || "20 Februari 2024"
+      }
       point={100}
       type="task"
+      status={status}
+      role={session?.user.role as "Teacher" | "Student"}
+      id={params.id}
+      doneTask={data.doneTask}
+      students={data.class}
     >
       <div className="flex flex-col gap-3">
         <p>
@@ -45,7 +54,12 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
         </p>
         <div className="grid grid-cols-4 gap-3 my-3">
           {Array.from({ length: 20 }).map((_, i) => (
-            <CardFile key={i} index={i} />
+            <CardFile
+              key={i}
+              index={i}
+              icon="download"
+              type={i % 2 === 0 ? "image" : "pdf"}
+            />
           ))}
         </div>
       </div>

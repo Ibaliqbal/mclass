@@ -43,6 +43,7 @@ export const POST = auth(async (req) => {
     description: body.description,
     type: body.type as "material" | "task" | "test" | "presence",
     deadline: body.deadline,
+    files: body.files,
   });
 
   return Response.json(
