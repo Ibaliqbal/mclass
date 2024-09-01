@@ -19,6 +19,13 @@ export async function GET(
         columns: {
           students: true,
         },
+        with: {
+          instructor: {
+            columns: {
+              name: true,
+            },
+          },
+        },
       },
     },
   });
@@ -27,6 +34,7 @@ export async function GET(
     ...task,
     doneTask: task?.doneTask.map((done) => done.student_id),
     class: task?.class.students,
+    instructor: task?.class.instructor.name,
   };
 
   return Response.json(

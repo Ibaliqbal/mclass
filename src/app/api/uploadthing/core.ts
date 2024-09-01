@@ -38,13 +38,19 @@ export const ourFileRouter = {
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
-      console.log("Upload complete for userId:", metadata.userId);
-
-      console.log("file url", file.url);
-      console.log("file type", file.type);
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
       return { uploadedBy: metadata.userId };
+    }),
+
+  profilePicture: f(["image"])
+    .middleware(async () => {
+      const session = await auth();
+      if (!session) throw new UploadThingError("Unauthorized");
+      return { userId: session.user.id };
+    })
+    .onUploadComplete((data) => {
+      return { uploadedBy: data.metadata.userId };
     }),
 } satisfies FileRouter;
 

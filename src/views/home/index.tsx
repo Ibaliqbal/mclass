@@ -1,13 +1,14 @@
 "use client";
 import CardClass from "@/components/card/card-class";
 import Loader from "@/components/loader";
+import { TClass } from "@/lib/db/schema";
 import { classService } from "@/services/class";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import Image from "next/image";
 
 const HomeView = () => {
-  const { error, isError, isLoading } = useQuery({
+  const { error, isError, isLoading, data } = useQuery({
     queryKey: ["classes"],
     queryFn: async () => (await classService.get()).data?.classes,
   });
@@ -26,9 +27,22 @@ const HomeView = () => {
     </div>
   ) : (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
-      {Array.from({ length: 20 }).map((_, i) => (
-        <CardClass key={i} i={i} />
-      ))}
+      {data.map(
+        (
+          classItem: Pick<
+            TClass,
+            "className" | "code" | "header_photo" | "subject"
+          > & {
+            instructor: {
+              name: string;
+              avatar: string | null;
+            };
+          },
+          i: number
+        ) => (
+          <CardClass key={classItem.code} i={i} {...classItem} />
+        )
+      )}
     </div>
   );
 };

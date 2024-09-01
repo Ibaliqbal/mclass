@@ -27,24 +27,27 @@ const layout = async ({
   return (
     <div className="w-full pt-5 pb-10">
       <div
-        className="w-full p-3 h-60 rounded-md flex flex-col justify-end text-white mix-blend-difference dark:header_photo"
+        className="w-full p-3 h-60 rounded-md flex flex-col justify-end mix-blend-difference text-white dark:header_photo"
         style={{
-          backgroundImage: "url('/header_1.jpeg')",
+          backgroundImage: `url('${data.data.header_photo}')`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 className="font-semibold text-4xl">PRE_XII EI 2</h1>
+        <h1 className="font-semibold text-4xl">{data.data.className}</h1>
         {session?.user.role === "Teacher" ? (
-          <h2 className="text-sm">Code: Hgaui19</h2>
+          <h2 className="text-sm">Code: {data.data.code}</h2>
         ) : null}
-        <h4 className="mt-3 text-lg">Tika Setiawati</h4>
-        <p>Mata Pelajaran : Rekayasa Perangkat Lunak</p>
-        <p>Ruang : 302</p>
+        <h4 className="mt-3 text-lg">{data.data.instructor.name}</h4>
+        <p>Mata Pelajaran : {data.data.subject}</p>
+        <p>Ruang : {data.data.room}</p>
       </div>
       <Separator className="mt-3" />
-      <NavigationClass code={params.code} />
+      <NavigationClass
+        code={params.code}
+        role={session?.user.role as "Teacher" | "Student"}
+      />
       {children}
       {session?.user.role === "Teacher" ? (
         <TooltipProvider>

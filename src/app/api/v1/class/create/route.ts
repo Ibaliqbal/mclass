@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { ClassTable } from "@/lib/db/schema";
+import { STATIC_HEADER_PHOTO } from "@/utils/constant";
 import { generateRandomCode } from "@/utils/helper";
 
 export const POST = auth(async (req) => {
@@ -17,6 +18,9 @@ export const POST = auth(async (req) => {
       { statusCode: 400, message: "Invalid role" },
       { status: 400 }
     );
+
+  const header_photo =
+    STATIC_HEADER_PHOTO[Math.round(Math.random() * STATIC_HEADER_PHOTO.length)];
 
   const {
     class_name,
@@ -43,6 +47,7 @@ export const POST = auth(async (req) => {
     instructorId: session.user.id,
     room,
     subject,
+    header_photo,
   });
 
   return Response.json(

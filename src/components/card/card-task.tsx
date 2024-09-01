@@ -16,7 +16,7 @@ const CardTask = ({ index }: { index: number }) => {
       className="py-3 px-2 w-full flex justify-between items-center"
     >
       <div>
-        <h3 className="text-lg font-bold">Task Title</h3>
+        <h3 className="text-lg font-bold line-clamp-1">Task Title</h3>
         <p className="text-gray-600">Tanggal: 20 Maret 2020</p>
       </div>
       <p className="text-lg text-red-600">Belum Diserahkan</p>

@@ -1,5 +1,5 @@
 "use client";
-import CardSubjectMatter from "@/components/card/card-subject-matter";
+import CardTask from "@/components/card/card-task";
 import Loader from "@/components/loader";
 import NavigationTask from "@/components/task/navigation-task";
 import SelectTask from "@/components/task/select-task";
@@ -27,7 +27,7 @@ const TasksTurendInView = ({ code }: { code: string }) => {
             />
             <div className="mt-4 flex flex-col gap-4">
               {Array.from({ length: 10 }).map((_, i) => (
-                <CardSubjectMatter key={i} index={i} />
+                <CardTask key={i} index={i} />
               ))}
             </div>
           </div>

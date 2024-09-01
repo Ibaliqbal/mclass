@@ -9,7 +9,7 @@ type Props = {
 
 const ListAlreadySubmitTask = ({ students, alreadyDone }: Props) => {
   return (
-    <section className="col-span-2 h-fit w-full p-3 flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
+    <section className="col-span-2 h-fit w-full p-4  flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold">Alraedy Submit</h3>
         <p

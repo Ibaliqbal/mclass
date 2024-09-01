@@ -10,17 +10,15 @@ import FormClassComment from "@/components/form/submission/form-class-comment";
 import { SlBookOpen } from "react-icons/sl";
 import { toast } from "react-hot-toast";
 import ListAlreadySubmitTask from "@/components/class/list-already-submit-task";
+import { TSubmission } from "@/lib/db/schema";
+import { format } from "date-fns";
 
-type Props = {
-  type: "material" | "task" | "test";
-  title: string;
+type Props = TSubmission & {
   point: number;
   dateCreated: string;
-  deadline: string;
   children: ReactNode;
   status: "done" | "assigned" | "missing";
   role: "Teacher" | "Student";
-  id: string;
   students: string[];
   doneTask: string[];
 };
@@ -40,8 +38,10 @@ const LayoutSubmission = ({
 }: Props) => {
   return (
     <div
-      className={`w-full pt-5 pb-10 g${
-        type !== "material" ? "rid grid-cols-6" : ""
+      className={`w-full pt-5 pb-10 ${
+        type !== "material" && type !== "presence"
+          ? "grid grid-cols-6"
+          : "container max-w-6xl"
       } gap-3`}
     >
       <section
@@ -50,7 +50,7 @@ const LayoutSubmission = ({
         } w-full flex gap-4 px-3`}
       >
         <div className="p-4 bg-sky-500 rounded-full w-fit h-fit">
-          {type !== "material" ? (
+          {type !== "material" && type !== "presence" ? (
             <MdOutlineQuiz className="text-2xl text-white" />
           ) : (
             <SlBookOpen className="text-2xl text-white" />
@@ -75,7 +75,7 @@ const LayoutSubmission = ({
           <p className="text-gray-500 dark:text-gray-300">{dateCreated}</p>
           <div className="flex items-center justify-between mt-3">
             <p>{point} poin</p>
-            <p>Tanggal : {deadline}</p>
+            <p>Tanggal : {format(new Date(deadline), "dd MMMM yyyy")}</p>
           </div>
 
           <Separator />
@@ -100,7 +100,7 @@ const LayoutSubmission = ({
           </div>
         </div>
       </section>
-      {type !== "material" ? (
+      {type !== "material" && type !== "presence" ? (
         role === "Student" ? (
           <FormSubmitTask status={status} />
         ) : (

@@ -1,4 +1,4 @@
-import CardSubjectMatter from "@/components/card/card-subject-matter";
+import CardTask from "@/components/card/card-task";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { DoneTaskTable, TSubmission } from "@/lib/db/schema";
@@ -18,21 +18,28 @@ const page = async ({ params }: { params: { code: string } }) => {
 
   const { data } = await classService.tasks(params.code);
 
-  const datas = data.data.submission.map((mission: Pick<TSubmission, "id" | "deadline" | "createdAt" | "title" | "type">) => ({
-    ...mission,
-    code: data.data.code,
-    isDone: done.includes(mission.id),
-    deadline:
-      mission.deadline &&
-      new Date(mission.deadline).getTime() > new Date().getTime(),
-  }));
+  const datas = data.data.submission.map(
+    (
+      mission: Pick<
+        TSubmission,
+        "id" | "deadline" | "createdAt" | "title" | "type"
+      >
+    ) => ({
+      ...mission,
+      code: data.data.code,
+      isDone: done.includes(mission.id),
+      deadline:
+        mission.deadline &&
+        new Date(mission.deadline).getTime() > new Date().getTime(),
+    })
+  );
 
   console.log(datas);
 
   return (
     <div className="mt-4 flex flex-col gap-4 max-w-6xl container">
       {Array.from({ length: 10 }).map((_, i) => (
-        <CardSubjectMatter key={i} index={i} />
+        <CardTask key={i} index={i} />
       ))}
     </div>
   );

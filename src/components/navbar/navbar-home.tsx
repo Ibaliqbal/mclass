@@ -11,12 +11,12 @@ const NavbarHome = async () => {
         <Link href={"/"}>MCLASS</Link>
       </h1>
       <div className="flex gap-4 items-center">
-        <Link
+        {/* <Link
           href={"/about-us"}
           className="hover:underline hover:underline-offset-4"
         >
           About us
-        </Link>
+        </Link> */}
         <ButtonAuth session={session} />
       </div>
     </nav>

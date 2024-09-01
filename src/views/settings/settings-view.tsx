@@ -21,10 +21,18 @@ import {
 import { useState } from "react";
 import { userService } from "@/services/user";
 import { AxiosError } from "axios";
+import { UploadButton } from "@/utils/uploadthing";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const SettingsView = () => {
+  const { data } = useQuery({
+    queryKey: ["user-detail"],
+    queryFn: async () => (await userService.get()).data?.data,
+  });
+  const queryClient = useQueryClient();
   const { setTheme, theme } = useTheme();
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const form = useForm<TResetPasswordT>({
     resolver: zodResolver(resetPasswordSchema),
@@ -38,7 +46,7 @@ const SettingsView = () => {
     try {
       setError("");
       // Reset password logic goes here
-      await userService.update(data);
+      await userService.update(data, "password");
 
       form.reset();
 
@@ -64,28 +72,42 @@ const SettingsView = () => {
         <div className="mt-3">
           <h3>Gambar Profil</h3>
 
-          <div className="mt-2 py-2 rounded-lg px-4 flex items-center justify-center gap-2 bg-sky-500 bg-opacity-30 w-fit">
-            <Label
-              className="flex items-center gap-3 text-md cursor-pointer"
-              htmlFor="profil-picture"
-            >
-              <Avatar className="w-[50px] h-[50px]">
-                <AvatarImage
-                  src="/avatar.jpg"
-                  alt="Avatar"
-                  width={100}
-                  height={100}
-                  className="object-cover object-center"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              Ubah
-            </Label>
-            <Input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              id="profil-picture"
+          <div className="selft-start w-fit flex flex-col gap-2 mt-3 items-center">
+            <Avatar className="w-[60px] h-[60px]">
+              <AvatarImage
+                src={
+                  data?.avatar
+                    ? data.avatar
+                    : `https://ui-avatars.com/api/?name=${
+                        data?.name || "I"
+                      }&background=random&color=#000`
+                }
+                alt="Avatar"
+                width={100}
+                height={100}
+                className="object-cover object-center"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <UploadButton
+              endpoint="profilePicture"
+              disabled={loading}
+              onClientUploadComplete={async (res) => {
+                try {
+                  setLoading(true);
+                  await userService.update({ avatar: res[0].url }, "avatar");
+                } catch (err) {
+                  console.log(err);
+                } finally {
+                  setLoading(false);
+                  queryClient.invalidateQueries({ queryKey: ["user-detail"] });
+                }
+              }}
+              appearance={{
+                // Menghapus padding dari sini
+                container:
+                  "py-2 rounded-lg px-4 flex items-center justify-center gap-2 w-fit",
+              }}
             />
           </div>
         </div>
