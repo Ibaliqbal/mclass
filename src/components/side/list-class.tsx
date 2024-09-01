@@ -53,7 +53,7 @@ const ListClass = ({ session }: { session: Session | null }) => {
                   </Link>
                 </motion.div>
               ) : null}
-              {data.map(
+              {data?.map(
                 (
                   classItem: Pick<
                     TClass,

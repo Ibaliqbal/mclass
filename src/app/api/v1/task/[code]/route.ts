@@ -51,6 +51,7 @@ export const GET = auth(async (req) => {
             title: true,
             createdAt: true,
             id: true,
+            deadline: true,
           },
         },
       },
@@ -152,6 +153,7 @@ export const GET = auth(async (req) => {
             title: true,
             createdAt: true,
             id: true,
+            deadline: true,
           },
         },
       },
@@ -237,7 +239,7 @@ export const GET = auth(async (req) => {
     return {
       ...mission,
       classCode: tasks?.code,
-      isDone: doneTasks.some((task) => task.submissionId === mission.id)
+      status: doneTasks.some((task) => task.submissionId === mission.id)
         ? "done"
         : new Date(mission.deadline).getTime() > new Date().getTime()
         ? "assigned"

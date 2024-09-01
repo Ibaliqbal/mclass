@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { TClass } from "@/lib/db/schema";
+import CustomImage from "../image";
 
 type Props = Pick<TClass, "code" | "className" | "header_photo" | "subject"> & {
   instructor: {
@@ -44,19 +45,17 @@ const CardClass = ({
         alt="Header_photo"
       />
       <div className="pl-3 px-2">
-        <Avatar className="w-20 h-20 -mt-14 mb-4">
-          <AvatarImage
-            src={
-              instructor.avatar
-                ? instructor.avatar
-                : `https://ui-avatars.com/api/?name=${instructor.name}&background=random&color=#000`
-            }
-            width={100}
-            height={100}
-            alt="Avatar"
-            className="object-cover object-center"
-          />
-        </Avatar>
+        <CustomImage
+          src={
+            instructor.avatar
+              ? instructor.avatar
+              : `https://ui-avatars.com/api/?name=${instructor.name}&background=random&color=#000`
+          }
+          width={100}
+          height={100}
+          alt="Avatar"
+          className="w-20 h-20 object-cover object-center rounded-full -mt-14 mb-4"
+        />
         <Link href={`/c/${code}`}>
           <h1 className="text-xl font-semibold hover:underline hover:underline-offset-4 line-clamp-1">
             {className}

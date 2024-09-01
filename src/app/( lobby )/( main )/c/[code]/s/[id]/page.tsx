@@ -30,8 +30,6 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
     status = "missing";
   }
 
-  console.log(data);
-
   return (
     <LayoutSubmission
       {...data}
@@ -44,6 +42,7 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
       role={session?.user.role as "Teacher" | "Student"}
       doneTask={data.doneTask}
       students={data.class}
+      code={params.code}
     >
       <div className="flex flex-col gap-3">
         <p>{data.description}</p>

@@ -171,3 +171,35 @@ export const doneTaskRelation = relations(DoneTaskTable, ({ one }) => ({
     references: [UserTable.id],
   }),
 }));
+
+export const CommentSubmissionTable = pgTable("comment_submission", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  content: text("content").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  submissionId: uuid("submission_id")
+    .references(() => SubmissionTable.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  student_id: uuid("student_id")
+    .references(() => UserTable.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+});
+
+export type TComment = typeof CommentSubmissionTable.$inferSelect;
+
+export const commentMissionRelation = relations(
+  CommentSubmissionTable,
+  ({ one }) => ({
+    submission: one(SubmissionTable, {
+      fields: [CommentSubmissionTable.submissionId],
+      references: [SubmissionTable.id],
+    }),
+    student: one(UserTable, {
+      fields: [CommentSubmissionTable.student_id],
+      references: [UserTable.id],
+    }),
+  })
+);

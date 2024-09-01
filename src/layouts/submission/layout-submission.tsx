@@ -21,6 +21,7 @@ type Props = TSubmission & {
   role: "Teacher" | "Student";
   students: string[];
   doneTask: string[];
+  code: string;
 };
 
 const LayoutSubmission = ({
@@ -35,6 +36,7 @@ const LayoutSubmission = ({
   id,
   students,
   doneTask,
+  code,
 }: Props) => {
   return (
     <div
@@ -95,7 +97,7 @@ const LayoutSubmission = ({
                   className="object-cover object-center rounded-full"
                 />
               </Avatar>
-              <FormClassComment />
+              <FormClassComment code={code} id={id} />
             </div>
           </div>
         </div>

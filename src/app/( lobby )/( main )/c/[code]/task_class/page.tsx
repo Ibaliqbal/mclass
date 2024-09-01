@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { DoneTaskTable, TSubmission } from "@/lib/db/schema";
 import { classService } from "@/services/class";
+import { format } from "date-fns";
 import { eq } from "drizzle-orm";
 
 const page = async ({ params }: { params: { code: string } }) => {
@@ -27,20 +28,43 @@ const page = async ({ params }: { params: { code: string } }) => {
     ) => ({
       ...mission,
       code: data.data.code,
-      isDone: done.includes(mission.id),
-      deadline:
-        mission.deadline &&
-        new Date(mission.deadline).getTime() > new Date().getTime(),
+      status: done.includes(mission.id)
+        ? "done"
+        : new Date(mission.deadline).getTime() > new Date().getTime()
+        ? "assigned"
+        : "missing",
     })
   );
 
-  console.log(datas);
-
   return (
     <div className="mt-4 flex flex-col gap-4 max-w-6xl container">
-      {Array.from({ length: 10 }).map((_, i) => (
-        <CardTask key={i} index={i} />
-      ))}
+      {datas.map(
+        (
+          task: Pick<
+            TSubmission,
+            "createdAt" | "id" | "title" | "type" | "deadline"
+          > & {
+            code: string;
+            status: "missing" | "assigned" | "done";
+          },
+          i: number
+        ) => (
+          <CardTask
+            key={i}
+            {...{
+              index: i,
+              code: task.code,
+              status: task.status,
+              createdAt: format(
+                new Date(task.createdAt as Date),
+                "dd MMMM yyyy"
+              ),
+              id: task.id,
+              title: task.title,
+            }}
+          />
+        )
+      )}
     </div>
   );
 };

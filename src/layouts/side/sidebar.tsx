@@ -1,7 +1,7 @@
 import ButtonCraeteClass from "@/components/button/button-create-class";
 import ButtonJoinClass from "@/components/button/button-join-class";
 import LinkActive from "@/components/side/link-active";
-import ListClass from "@/components/side/list-calss";
+import ListClass from "@/components/side/list-class";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@/lib/auth";

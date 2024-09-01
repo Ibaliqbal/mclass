@@ -1,4 +1,3 @@
-import CardTask from "@/components/card/card-task";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@/lib/auth";

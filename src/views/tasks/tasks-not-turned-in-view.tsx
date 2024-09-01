@@ -5,6 +5,8 @@ import NavigationTask from "@/components/task/navigation-task";
 import SelectTask from "@/components/task/select-task";
 import Loader from "@/components/loader";
 import CardTask from "@/components/card/card-task";
+import { TSubmission } from "@/lib/db/schema";
+import { format } from "date-fns";
 
 const TasksNotTurnedInView = ({ code }: { code: string }) => {
   const { isLoading, data } = useQuery({
@@ -26,9 +28,32 @@ const TasksNotTurnedInView = ({ code }: { code: string }) => {
               listClass={data.classes}
             />
             <div className="mt-4 flex flex-col gap-4">
-              {Array.from({ length: 10 }).map((_, i) => (
-                <CardTask key={i} index={i} />
-              ))}
+              {data.data.map(
+                (
+                  task: Pick<
+                    TSubmission,
+                    "title" | "createdAt" | "id" | "deadline"
+                  > & {
+                    classCode: string;
+                  },
+                  i: number
+                ) => (
+                  <CardTask
+                    key={i}
+                    {...{
+                      index: i,
+                      code: task.classCode,
+                      status: "assigned",
+                      createdAt: format(
+                        new Date(task.createdAt as Date),
+                        "dd MMMM yyyy"
+                      ),
+                      id: task.id,
+                      title: task.title,
+                    }}
+                  />
+                )
+              )}
             </div>
           </div>
         </>

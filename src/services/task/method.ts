@@ -1,10 +1,13 @@
+type SubmissionParam = {
+  classCode: string;
+  id: string;
+  createdAt: Date | null;
+  title: string;
+  deadline: string;
+};
+
 export function filterTaskTurnedIn(
-  tasks: Array<{
-    classCode: string;
-    id: string;
-    createdAt: Date | null;
-    title: string;
-  }>,
+  tasks: Array<SubmissionParam>,
   done: {
     submissionId: string;
   }[]
@@ -15,12 +18,7 @@ export function filterTaskTurnedIn(
 }
 
 export function filterTaskMissing(
-  tasks: Array<{
-    classCode: string;
-    id: string;
-    createdAt: Date | null;
-    title: string;
-  }>,
+  tasks: Array<SubmissionParam>,
   done: {
     submissionId: string;
   }[]
@@ -35,12 +33,7 @@ export function filterTaskMissing(
 }
 
 export function filterTaskNotTurnedIn(
-  tasks: Array<{
-    classCode: string;
-    id: string;
-    createdAt: Date | null;
-    title: string;
-  }>,
+  tasks: Array<SubmissionParam>,
   done: {
     submissionId: string;
   }[]
