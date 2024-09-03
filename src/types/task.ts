@@ -5,9 +5,7 @@ export const taskSchema = z.object({
   description: z
     .string()
     .min(10, { message: "Description task minimun for 10 characters" }),
-  deadline: z
-    .date({ required_error: "A date of birth is required." })
-    .or(z.string()),
+  deadline: z.date({ required_error: "A date of birth is required." }),
   type: z.string().min(1),
   files: z
     .object({
