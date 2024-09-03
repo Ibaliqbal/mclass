@@ -3,6 +3,8 @@ import React from "react";
 import CardPeople from "../card/card-people";
 import { useQuery } from "@tanstack/react-query";
 import { taskService } from "@/services/task";
+import Link from "next/link";
+import { Files } from "@/types/task";
 
 type Props = {
   students: string[];
@@ -34,7 +36,10 @@ const ListAlreadySubmitTask = ({ students, id, code }: Props) => {
           {data.map(
             (
               done: {
-                doneId: string;
+                id: string;
+                files: Files[];
+                createdAt: Date;
+                point: number;
                 avatar: string;
                 name: string;
               },
@@ -43,10 +48,17 @@ const ListAlreadySubmitTask = ({ students, id, code }: Props) => {
               <CardPeople
                 name={done.name}
                 avatar={done.avatar}
-                key={done.doneId}
+                key={done.id}
+                withBorder={false}
               />
             )
           )}
+          <Link
+            href={`/c/${code}/s/${id}/already_done`}
+            className="text-blue-600 hover:underline self-end"
+          >
+            See more
+          </Link>
         </div>
       )}
     </section>

@@ -2,7 +2,7 @@
 import FormSubmitTask from "@/components/form/submission/form-submit-task";
 import { AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { Avatar } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import React, { ReactNode } from "react";
 import { HiLink, HiOutlineDotsVertical, HiUsers } from "react-icons/hi";
 import { MdOutlineQuiz } from "react-icons/md";
@@ -14,6 +14,7 @@ import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
 import Link from "next/link";
 import ListComments from "@/components/task/list-comment";
+import { Files } from "@/types/task";
 
 type Props = TSubmission & {
   point: number;
@@ -23,6 +24,10 @@ type Props = TSubmission & {
   role: "Teacher" | "Student";
   students: string[];
   code: string;
+  name: string;
+  avatar: string;
+  filesSubmit: Files[];
+  idDone: string
 };
 
 const LayoutSubmission = ({
@@ -37,6 +42,10 @@ const LayoutSubmission = ({
   id,
   students,
   code,
+  name,
+  avatar,
+  filesSubmit,
+  idDone
 }: Props) => {
   return (
     <div
@@ -83,9 +92,14 @@ const LayoutSubmission = ({
           <div className="flex items-center justify-between mt-3">
             {role === "Student" ? <p>{point} poin</p> : null}
             <p>Deadline : {format(new Date(deadline), "dd MMMM yyyy")}</p>
-            <Link href={`/c/${code}/s/${id}/edit`} className="hover:underline">
-              Edit
-            </Link>
+            {role === "Teacher" ? (
+              <Link
+                href={`/c/${code}/s/${id}/edit`}
+                className="hover:underline"
+              >
+                Edit
+              </Link>
+            ) : null}
           </div>
 
           <Separator />
@@ -99,12 +113,17 @@ const LayoutSubmission = ({
             <div className="flex gap-3">
               <Avatar className="w-12 h-12">
                 <AvatarImage
-                  src="/avatar.jpg"
+                  src={
+                    avatar
+                      ? avatar
+                      : `https://ui-avatars.com/api/?name=${name}&background=random&color=#fff`
+                  }
                   alt="Avatar"
                   width={100}
                   height={100}
                   className="object-cover object-center rounded-full"
                 />
+                <AvatarFallback>{name.charAt(0)}</AvatarFallback>
               </Avatar>
               <FormClassComment code={code} id={id} />
             </div>
@@ -113,7 +132,13 @@ const LayoutSubmission = ({
       </section>
       {type !== "material" && type !== "presence" ? (
         role === "Student" ? (
-          <FormSubmitTask status={status} />
+          <FormSubmitTask
+            status={status}
+            code={code}
+            id={id}
+            filesSubmit={filesSubmit}
+            idDone={idDone}
+          />
         ) : (
           <ListAlreadySubmitTask students={students} id={id} code={code} />
         )

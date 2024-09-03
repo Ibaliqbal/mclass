@@ -4,11 +4,16 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 type Props = {
   avatar: string;
   name: string;
+  withBorder: boolean;
 };
 
-const CardPeople = ({ avatar, name }: Props) => {
+const CardPeople = ({ avatar, name, withBorder }: Props) => {
   return (
-    <div className="flex items-center gap-3 pb-2 border-b border-gray-500">
+    <div
+      className={`flex items-center gap-3 ${
+        withBorder ? "pb-2 border-b border-gray-500" : ""
+      }`}
+    >
       <Avatar className="w-12 h-12">
         <AvatarImage
           src={

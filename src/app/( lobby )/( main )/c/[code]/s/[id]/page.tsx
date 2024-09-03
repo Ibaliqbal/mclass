@@ -38,11 +38,15 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
         new Date(data.updatedAt),
         "dd MMMM yyyy"
       )}`}
-      point={100}
+      point={doneTask?.point}
       status={status}
       role={session?.user.role as "Teacher" | "Student"}
       students={data.class}
       code={params.code}
+      name={session?.user.name}
+      avatar={session?.user.image}
+      filesSubmit={doneTask?.files}
+      idDone={doneTask?.id}
     >
       <div className="flex flex-col gap-3">
         <p>{data.description}</p>

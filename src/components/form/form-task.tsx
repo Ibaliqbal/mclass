@@ -40,16 +40,17 @@ type Props = {
   success: string;
   onSubmit: (data: TTask) => Promise<void>;
   textBtn: string
+  title: string
 };
 
-const FormTask = ({ form, success, onSubmit, textBtn }: Props) => {
+const FormTask = ({ form, success, onSubmit, textBtn, title }: Props) => {
   return (
     <Form {...form}>
       <form
         className="mt-4 flex flex-col gap-5 container max-w-6xl"
         onSubmit={form.handleSubmit(onSubmit)}
       >
-        <h1 className="text-xl font-semibold mb-3">Create new task</h1>
+        <h1 className="text-xl font-semibold mb-3">{title}</h1>
         {success ? (
           <Alert variant="success" className="mb-2">
             <FaCheck className="h-5 w-5" />

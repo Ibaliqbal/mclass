@@ -1,6 +1,5 @@
 import { db } from "@/lib/db";
 import { DoneTaskTable } from "@/lib/db/schema";
-import { equal } from "assert";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
@@ -21,6 +20,9 @@ export async function GET(
     where: eq(DoneTaskTable.submissionId, id),
     columns: {
       id: true,
+      createdAt: true,
+      files: true,
+      point: true,
     },
     with: {
       student: {
@@ -37,7 +39,10 @@ export async function GET(
       statusCode: 200,
       message: "Successs",
       data: students.map((student) => ({
-        doneId: student.id,
+        id: student.id,
+        createdAt: student.createdAt,
+        files: student.files,
+        point: student.point,
         ...student.student,
       })),
     },

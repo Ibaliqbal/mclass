@@ -36,7 +36,7 @@ const ClassCreateView = ({ code }: { code: string }) => {
     }
   };
 
-  return <FormTask form={form} onSubmit={onSubmit} success={success} textBtn="Craete" />;
+  return <FormTask form={form} onSubmit={onSubmit} success={success} textBtn="Craete" title="Create new task" />;
 };
 
 export default ClassCreateView;

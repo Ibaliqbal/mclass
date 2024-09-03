@@ -60,6 +60,7 @@ const TaskEditView = ({
       onSubmit={onSubmit}
       success={success}
       textBtn="Update"
+      title="Edit task"
     />
   );
 };

@@ -10,7 +10,7 @@ const page = async ({ params }: { params: { code: string } }) => {
     <div className="mt-6 flex flex-col gap-6 max-w-6xl container">
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold">Pengajar</h2>
-        <CardPeople {...data.instructor} />
+        <CardPeople {...data.instructor} withBorder={false} />
       </section>
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold">Siswa</h2>
@@ -23,7 +23,7 @@ const page = async ({ params }: { params: { code: string } }) => {
               },
               i: number
             ) => (
-              <CardPeople key={i} {...student} />
+              <CardPeople key={i} {...student} withBorder />
             )
           )}
         </div>

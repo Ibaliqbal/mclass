@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { Files } from "@/types/task";
 import toast from "react-hot-toast";
+import CustomImage from "../image";
 
 type Props = {
   index: number;
@@ -58,12 +59,10 @@ const CardFile = ({ index, withIcon, type, url, name, totalList }: Props) => {
         totalList > 1 ? "h-[125px]" : "aspect-[1/.5]"
       }`}
     >
-      <Image
+      <CustomImage
         src={url}
         alt={name}
         fill
-        loading="lazy"
-        sizes="100%"
         className="object-cover object-center w-full h-full rounded-md"
       />
       {withIcon ? (

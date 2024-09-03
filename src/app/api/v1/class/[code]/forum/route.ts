@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
-import { ClassTable } from "@/lib/db/schema";
-import { and, arrayContains, eq } from "drizzle-orm";
+import { ClassTable, SubmissionTable } from "@/lib/db/schema";
+import { desc, eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
 export async function GET(
@@ -20,6 +20,7 @@ export async function GET(
           type: true,
           updatedAt: true,
         },
+        orderBy: [desc(SubmissionTable.createdAt)],
       },
     },
     columns: { code: true },

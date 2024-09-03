@@ -13,19 +13,22 @@ const HomeView = () => {
     queryFn: async () => (await classService.get()).data?.classes,
   });
 
-  return isLoading ? (
-    <Loader />
-  ) : isError && (error as AxiosError).status === 401 ? (
-    <div className="flex items-center justify-center gap-3 flex-col h-[70dvh]">
-      <Image
-        src="/login-first.png"
-        alt="Login First"
-        width={300}
-        height={300}
-      />
-      <p className="text-xl font-semibold">Please Login First</p>
-    </div>
-  ) : (
+  if (isLoading) return <Loader />;
+
+  if (isError && (error as AxiosError).status === 401)
+    return (
+      <div className="flex items-center justify-center gap-3 flex-col h-[70dvh]">
+        <Image
+          src="/login-first.png"
+          alt="Login First"
+          width={300}
+          height={300}
+        />
+        <p className="text-xl font-semibold">Please Login First</p>
+      </div>
+    );
+
+  return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-3">
       {data?.map(
         (

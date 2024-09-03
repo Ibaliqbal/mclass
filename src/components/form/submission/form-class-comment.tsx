@@ -11,6 +11,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { taskService } from "@/services/task";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -28,6 +29,7 @@ const FormClassComment = ({ code, id }: { code: string; id: string }) => {
       content: "",
     },
   });
+  const queryClient = useQueryClient();
 
   const onSubmit = async (data: z.infer<typeof commentSchema>) => {
     try {
@@ -37,6 +39,7 @@ const FormClassComment = ({ code, id }: { code: string; id: string }) => {
       console.log(error);
     } finally {
       form.reset();
+      queryClient.invalidateQueries({ queryKey: ["comments task", id, code] });
     }
   };
 

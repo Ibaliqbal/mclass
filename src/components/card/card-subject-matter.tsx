@@ -57,7 +57,7 @@ const CardSubjectMatter = ({
             </p>
             {new Date(updatedAt as Date).getTime() >
             new Date(createdAt as Date).getTime() ? (
-              <p>(update)</p>
+              <p className="text-sm">(update)</p>
             ) : null}
           </div>
         </div>

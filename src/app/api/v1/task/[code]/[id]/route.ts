@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { SubmissionTable } from "@/lib/db/schema";
+import { DoneTaskTable, SubmissionTable } from "@/lib/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
@@ -77,5 +77,35 @@ export const PUT = auth(async (req) => {
   return Response.json(
     { statusCode: 200, message: "Update data success" },
     { status: 200 }
+  );
+});
+
+export const POST = auth(async (req) => {
+  const session = req.auth;
+  const body = await req.json();
+  const url = new URL(req.url);
+  const id = url.pathname.split("/").pop() as string;
+
+  if (!session)
+    return Response.json(
+      { statusCode: 401, message: "Unautorized" },
+      { status: 401 }
+    );
+
+  if (session.user.role !== "Student")
+    return Response.json(
+      { statusCode: 403, message: "Invalid role" },
+      { status: 403 }
+    );
+
+  await db.insert(DoneTaskTable).values({
+    student_id: session.user.id,
+    submissionId: id,
+    files: body.files,
+  });
+
+  return Response.json(
+    { statusCode: 201, message: "Success submit task" },
+    { status: 201 }
   );
 });

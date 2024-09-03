@@ -1,5 +1,5 @@
 import instance from "@/lib/axios/instance";
-import { TTask } from "@/types/task";
+import { Files, TTask } from "@/types/task";
 
 export const taskService = {
   get: (code: string) => instance.get(`/task/${code}`),
@@ -16,4 +16,9 @@ export const taskService = {
     instance.get(`/task/${code}/${id}/comment`),
   update: (code: string, id: string, data: TTask) =>
     instance.put(`/task/${code}/${id}`, data),
+  updatePoint: (data: { point: number }, id: string) =>
+    instance.put(`/task/submission/done/${id}`, data),
+  submit: (code: string, id: string, data: { files: Files[] }) =>
+    instance.post(`/task/${code}/${id}`, data),
+  cancelSubmit: (id: string) => instance.delete(`/task/submission/done/${id}`),
 };
