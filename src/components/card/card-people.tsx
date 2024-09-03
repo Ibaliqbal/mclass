@@ -14,7 +14,7 @@ const CardPeople = ({ avatar, name }: Props) => {
           src={
             avatar
               ? avatar
-              : `https://ui-avatars.com/api/?name=${name}&background=random&color=#000`
+              : `https://ui-avatars.com/api/?name=${name}&background=random&color=#fff`
           }
           alt="Avatar"
           width={100}

@@ -16,9 +16,10 @@ import toast from "react-hot-toast";
 type Props = {
   index: number;
   withIcon: boolean;
+  totalList: number;
 } & Files;
 
-const CardFile = ({ index, withIcon, type, url, name }: Props) => {
+const CardFile = ({ index, withIcon, type, url, name, totalList }: Props) => {
   const handleClick = async (urlFile: string, nameFile: string) => {
     try {
       const res = await fetch(urlFile);
@@ -53,7 +54,9 @@ const CardFile = ({ index, withIcon, type, url, name }: Props) => {
         ease: "circInOut",
         type: "tween",
       }}
-      className="flex group flex-col hover:scale-95 transition-transform duration-300 ease-linear relative p-3 border cursor-pointer border-gray-500 gap-3 rounded-md items-center w-full h-[120px]"
+      className={`flex group flex-col hover:scale-95 transition-transform duration-300 ease-linear relative p-3 border cursor-pointer border-gray-500 gap-3 rounded-md items-center w-full ${
+        totalList > 1 ? "h-[125px]" : "aspect-[1/.5]"
+      }`}
     >
       <Image
         src={url}

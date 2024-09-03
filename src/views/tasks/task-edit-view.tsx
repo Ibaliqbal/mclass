@@ -1,5 +1,5 @@
 "use client";
-import { taskSchema, TTask } from "@/types/task";
+import { Files, taskSchema, TTask } from "@/types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { taskService } from "@/services/task";
@@ -8,21 +8,41 @@ import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import FormTask from "@/components/form/form-task";
 
-const ClassCreateView = ({ code }: { code: string }) => {
+type Props = {
+  title: string;
+  deadline: Date;
+  type: string;
+  description: string;
+  files: Files[];
+  code: string;
+  id: string;
+};
+
+const TaskEditView = ({
+  code,
+  id,
+  deadline,
+  description,
+  files,
+  title,
+  type,
+}: Props) => {
   const [success, setSuccess] = useState("");
   const form = useForm<TTask>({
     resolver: zodResolver(taskSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      type: "",
+      title,
+      description,
+      type,
+      deadline: new Date(deadline),
+      files,
     },
   });
 
   const onSubmit = async (data: TTask) => {
     try {
       setSuccess("");
-      const res = await taskService.create(data, code);
+      const res = await taskService.update(code, id, data);
       setSuccess(res.data.message);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -31,12 +51,17 @@ const ClassCreateView = ({ code }: { code: string }) => {
         message: string;
       };
       toast.error(data.message);
-    } finally {
-      form.reset();
     }
   };
 
-  return <FormTask form={form} onSubmit={onSubmit} success={success} textBtn="Craete" />;
+  return (
+    <FormTask
+      form={form}
+      onSubmit={onSubmit}
+      success={success}
+      textBtn="Update"
+    />
+  );
 };
 
-export default ClassCreateView;
+export default TaskEditView;

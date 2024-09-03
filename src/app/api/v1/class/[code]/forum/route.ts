@@ -18,6 +18,7 @@ export async function GET(
           title: true,
           id: true,
           type: true,
+          updatedAt: true,
         },
       },
     },

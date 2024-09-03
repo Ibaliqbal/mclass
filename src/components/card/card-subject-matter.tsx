@@ -9,7 +9,10 @@ import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
 
-type Props = Pick<TSubmission, "createdAt" | "id" | "title" | "type"> & {
+type Props = Pick<
+  TSubmission,
+  "createdAt" | "id" | "title" | "type" | "updatedAt"
+> & {
   code: string;
   index: number;
 };
@@ -21,6 +24,7 @@ const CardSubjectMatter = ({
   id,
   title,
   type,
+  updatedAt,
 }: Props) => {
   return (
     <motion.article
@@ -44,9 +48,18 @@ const CardSubjectMatter = ({
         </div>
         <div>
           <h2 className="text-lg line-clamp-1">{title}</h2>
-          <p className="text-gray-500 dark:text-gray-300 text-sm">
-            {format(new Date(createdAt as Date), "dd MMMM yyyy")}
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-gray-500 dark:text-gray-300 text-sm">
+              {new Date(updatedAt as Date).getTime() >
+              new Date(createdAt as Date).getTime()
+                ? format(new Date(createdAt as Date), "dd MMMM yyyy")
+                : format(new Date(updatedAt as Date), "dd MMMM yyyy")}
+            </p>
+            {new Date(updatedAt as Date).getTime() >
+            new Date(createdAt as Date).getTime() ? (
+              <p>(update)</p>
+            ) : null}
+          </div>
         </div>
       </Link>
       <div className="relative group w-fit">

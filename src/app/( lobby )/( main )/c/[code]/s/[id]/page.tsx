@@ -41,7 +41,6 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
       point={100}
       status={status}
       role={session?.user.role as "Teacher" | "Student"}
-      doneTask={data.doneTask}
       students={data.class}
       code={params.code}
     >
@@ -49,7 +48,13 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
         <p>{data.description}</p>
         <div className="grid grid-cols-4 gap-3 my-3">
           {data.files?.map((file: Files, i: number) => (
-            <CardFile key={i} index={i} withIcon {...file} />
+            <CardFile
+              key={i}
+              index={i}
+              withIcon
+              {...file}
+              totalList={data.files.length}
+            />
           ))}
         </div>
       </div>

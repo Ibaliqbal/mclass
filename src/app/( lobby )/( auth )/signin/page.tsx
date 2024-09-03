@@ -1,5 +1,13 @@
 import FormSignIn from "@/components/form/form-signin";
 import LayoutAuth from "@/layouts/auth/layout-auth";
+import { seo } from "@/utils/helper";
+
+export const metadata = seo(
+  "Selamat Datang kembali, Para Pahlawan Masa Depan! Ayo Masuk dan Siapkan diri untuk Petualangan Hebat Bersama Kami!",
+  "Masuk ke akun Anda untuk mengakses konten eksklusif dan bergabung dengan komunitas kami. Daftar sekarang jika Anda belum memiliki akun.",
+  "/signin",
+  ["komunitas", "petualangan", "learnig management system", "LMS"]
+);
 
 const page = () => {
   return (

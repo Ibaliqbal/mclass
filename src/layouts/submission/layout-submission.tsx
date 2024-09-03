@@ -13,6 +13,7 @@ import ListAlreadySubmitTask from "@/components/class/list-already-submit-task";
 import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
 import Link from "next/link";
+import ListComments from "@/components/task/list-comment";
 
 type Props = TSubmission & {
   point: number;
@@ -21,7 +22,6 @@ type Props = TSubmission & {
   status: "done" | "assigned" | "missing";
   role: "Teacher" | "Student";
   students: string[];
-  doneTask: string[];
   code: string;
 };
 
@@ -36,7 +36,6 @@ const LayoutSubmission = ({
   role,
   id,
   students,
-  doneTask,
   code,
 }: Props) => {
   return (
@@ -67,7 +66,12 @@ const LayoutSubmission = ({
               <div className="bg-white rounded-md p-3 flex flex-col opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out gap-3 absolute right-3 top-3 text-nowrap dark:text-black">
                 <p
                   className="flex items-center gap-2 cursor-pointer"
-                  onClick={() => toast.success("Copy to clipboard")}
+                  onClick={async () => {
+                    await navigator.clipboard.writeText(
+                      `${process.env.NEXT_PUBLIC_APP_URL}/c/${code}/s/${id}`
+                    );
+                    toast.success("Link copied to clipboard!");
+                  }}
                 >
                   <HiLink />
                   Share Link
@@ -79,7 +83,7 @@ const LayoutSubmission = ({
           <div className="flex items-center justify-between mt-3">
             {role === "Student" ? <p>{point} poin</p> : null}
             <p>Deadline : {format(new Date(deadline), "dd MMMM yyyy")}</p>
-            <Link href={"/"} className="hover:underline">
+            <Link href={`/c/${code}/s/${id}/edit`} className="hover:underline">
               Edit
             </Link>
           </div>
@@ -91,6 +95,7 @@ const LayoutSubmission = ({
             <h6 className="flex items-center gap-2 text-lg">
               <HiUsers className="text-xl" /> Komentar Kelas
             </h6>
+            <ListComments code={code} id={id} />
             <div className="flex gap-3">
               <Avatar className="w-12 h-12">
                 <AvatarImage
@@ -110,11 +115,7 @@ const LayoutSubmission = ({
         role === "Student" ? (
           <FormSubmitTask status={status} />
         ) : (
-          <ListAlreadySubmitTask
-            students={students}
-            alreadyDone={doneTask}
-            id={id}
-          />
+          <ListAlreadySubmitTask students={students} id={id} code={code} />
         )
       ) : null}
     </div>

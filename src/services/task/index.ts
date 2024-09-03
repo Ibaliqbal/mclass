@@ -1,10 +1,9 @@
 import instance from "@/lib/axios/instance";
-import { TCreateTask } from "@/types/task";
+import { TTask } from "@/types/task";
 
 export const taskService = {
   get: (code: string) => instance.get(`/task/${code}`),
-  create: (data: TCreateTask, code: string) =>
-    instance.post(`/task/${code}/create`, data),
+  create: (data: TTask, code: string) => instance.post(`/task/${code}`, data),
   getByStatus: (
     code: string,
     status: "missing" | "turned-in" | "not-turned-in"
@@ -12,4 +11,9 @@ export const taskService = {
   detail: (code: string, id: string) => instance.get(`/task/${code}/${id}`),
   comment: (data: { content: string }, code: string, id: string) =>
     instance.post(`/task/${code}/${id}/comment`, data),
+  done: (id: string, code: string) => instance.get(`/task/${code}/${id}/done`),
+  getComment: (code: string, id: string) =>
+    instance.get(`/task/${code}/${id}/comment`),
+  update: (code: string, id: string, data: TTask) =>
+    instance.put(`/task/${code}/${id}`, data),
 };

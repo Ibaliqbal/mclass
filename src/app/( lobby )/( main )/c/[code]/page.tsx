@@ -10,7 +10,7 @@ const page = async ({ params }: { params: { code: string } }) => {
     <div className="mt-4 flex flex-col gap-4 container max-w-6xl">
       {data.data.map(
         (
-          task: Pick<TSubmission, "createdAt" | "id" | "title" | "type"> & {
+          task: Pick<TSubmission, "createdAt" | "id" | "title" | "type" | "updatedAt"> & {
             code: string;
           },
           i: number

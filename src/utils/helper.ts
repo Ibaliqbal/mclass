@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 export function generateRandomCode(leng: number, existCode: string[]) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -15,3 +16,25 @@ export function generateRandomCode(leng: number, existCode: string[]) {
 
   return code.join(""); // Kembalikan hasil sebagai string
 }
+
+export const seo = (
+  title: string,
+  description: string,
+  site: string,
+  keywords?: string[]
+): Metadata => {
+  return {
+    title,
+    description,
+    keywords,
+    openGraph: {
+      type: "website",
+      title,
+      description,
+      siteName: `${process.env.NEXT_PUBLIC_APP_URL}/${site}`,
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/${site}`,
+    },
+    applicationName: "MCLASS",
+    robots: {},
+  };
+};
