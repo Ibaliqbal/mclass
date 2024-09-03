@@ -1,0 +1,1 @@
+ALTER TABLE "done_task" ADD COLUMN "point" integer DEFAULT 0 NOT NULL;

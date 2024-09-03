@@ -33,10 +33,10 @@ const FormSubmitTask = ({ status }: Props) => {
         </p>
       </div>
       <div className="flex flex-col gap-3">
+        {/* <CardFile index={1} icon="delete" type={"pdf"} />
         <CardFile index={1} icon="delete" type={"pdf"} />
         <CardFile index={1} icon="delete" type={"pdf"} />
-        <CardFile index={1} icon="delete" type={"pdf"} />
-        <CardFile index={1} icon="delete" type={"pdf"} />
+        <CardFile index={1} icon="delete" type={"pdf"} /> */}
       </div>
       {status === "done" ? (
         <Button

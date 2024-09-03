@@ -1,1 +1,0 @@
-ALTER TABLE "submission" ALTER COLUMN "deadline" SET DATA TYPE date;

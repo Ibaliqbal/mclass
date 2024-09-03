@@ -22,6 +22,7 @@ const CustomImage = ({
         unoptimized
         onLoadingComplete={() => setLoading(false)}
         {...rest}
+        sizes="100%"
         className={`${className} ${loading ? "animate-pulse bg-gray-700" : ""}`}
       />
     </figure>

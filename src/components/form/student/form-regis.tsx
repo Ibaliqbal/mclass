@@ -74,6 +74,7 @@ const FormRegis = () => {
                   className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your name.."
                   {...field}
+                  type="text"
                 />
               </FormControl>
               <FormMessage />
@@ -91,6 +92,7 @@ const FormRegis = () => {
                   className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your email.."
                   {...field}
+                  type="email"
                 />
               </FormControl>
               <FormMessage />
@@ -125,6 +127,7 @@ const FormRegis = () => {
                   className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your password.."
                   {...field}
+                  type="password"
                 />
               </FormControl>
               <FormMessage />

@@ -9,7 +9,7 @@ export const createTaskSchema = z.object({
   type: z.string().min(1),
   files: z
     .object({
-      key: z.string(),
+      keyFile: z.string(),
       name: z.string(),
       url: z.string(),
       type: z.string(),
@@ -19,3 +19,9 @@ export const createTaskSchema = z.object({
 });
 
 export type TCreateTask = z.infer<typeof createTaskSchema>;
+export type Files = {
+  keyFile: string;
+  url: string;
+  name: string;
+  type: string;
+};

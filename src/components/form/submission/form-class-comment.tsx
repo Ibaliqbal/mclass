@@ -65,7 +65,7 @@ const FormClassComment = ({ code, id }: { code: string; id: string }) => {
         />
         <Button
           variant="icon"
-          className="text-start"
+          className="text-start disabled:text-gray-500 disabled:cursor-not-allowed"
           type="submit"
           disabled={form.formState.isSubmitting}
         >

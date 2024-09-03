@@ -1,3 +1,4 @@
+import { Files } from "@/types/task";
 import { relations, sql } from "drizzle-orm";
 import {
   bigint,
@@ -105,7 +106,8 @@ export const SubmissionTable = pgTable(
     description: varchar("description").notNull(),
     files: jsonb("files")
       .array()
-      .default(sql`ARRAY[]::jsonb[]`),
+      .default(sql`ARRAY[]::jsonb[]`)
+      .$type<Files[]>(),
     deadline: date("deadline").notNull().defaultNow(),
     type: SubmissionType("submissionType").default("material").notNull(),
     createdAt: timestamp("created_at").defaultNow(),
@@ -139,7 +141,8 @@ export const DoneTaskTable = pgTable(
     id: uuid("id").primaryKey().defaultRandom(),
     files: jsonb("files")
       .array()
-      .default(sql`ARRAY[]::jsonb[]`),
+      .default(sql`ARRAY[]::jsonb[]`)
+      .$type<Files[]>(),
     submissionId: uuid("submission_id")
       .references(() => SubmissionTable.id, {
         onDelete: "cascade",
@@ -151,6 +154,7 @@ export const DoneTaskTable = pgTable(
       })
       .notNull(),
     createdAt: timestamp("created_at").defaultNow(),
+    point: integer("point").default(0).notNull(),
   },
   (table) => ({
     idIndex: index("idDoneTaskIndex").on(table.id),

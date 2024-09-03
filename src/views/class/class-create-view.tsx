@@ -189,7 +189,7 @@ const ClassCreateView = ({ code }: { code: string }) => {
                       onSelect={field.onChange}
                       initialFocus
                       disabled={(date) =>
-                        date < new Date() || date < new Date("1900-01-01")
+                        date <= new Date() || date < new Date("1900-01-01")
                       }
                     />
                   </PopoverContent>
@@ -214,10 +214,10 @@ const ClassCreateView = ({ code }: { code: string }) => {
                     {field.value &&
                       field.value?.map((file, i) => (
                         <CardFile
-                          key={file.key}
+                          key={file.keyFile}
                           index={i}
-                          icon="delete"
-                          type="pdf"
+                          withIcon={false}
+                          {...file}
                         />
                       ))}
                   </div>
@@ -233,7 +233,7 @@ const ClassCreateView = ({ code }: { code: string }) => {
                           ? field.onChange([
                               ...field.value,
                               ...res.map((data) => ({
-                                key: data.key,
+                                keyFile: data.key,
                                 name: data.name,
                                 url: data.url,
                                 type:
@@ -244,17 +244,17 @@ const ClassCreateView = ({ code }: { code: string }) => {
                             ])
                           : field.onChange([
                               ...res.map((data) => ({
-                                key: data.key,
+                                keyFile: data.key,
                                 name: data.name,
                                 url: data.url,
                                 type:
                                   data.type.split("/")[0] === "image"
                                     ? "image"
+                                    : data.type.split("/")[0] === "video"
+                                    ? "video"
                                     : data.key.split(".")[1],
                               })),
                             ]);
-
-                        console.log(res);
                       }}
                     />
                   </div>

@@ -9,6 +9,7 @@ import {
 import { auth } from "@/lib/auth";
 import { classService } from "@/services/class";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 import { FaPlus } from "react-icons/fa6";
 
@@ -21,6 +22,8 @@ const layout = async ({
 }) => {
   const session = await auth();
   const { data } = await classService.detail(params.code);
+
+  if (!session) return redirect("/");
 
   const statusJoin = data?.data.students.includes(session?.user.id as string);
 

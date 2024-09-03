@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import { Avatar, AvatarImage } from "../ui/avatar";
+import CardPeople from "../card/card-people";
 
 type Props = {
   students: string[];
   alreadyDone: string[];
+  id: string
 };
 
-const ListAlreadySubmitTask = ({ students, alreadyDone }: Props) => {
+const ListAlreadySubmitTask = ({ students, alreadyDone, id }: Props) => {
   return (
     <section className="col-span-2 h-fit w-full p-4  flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
       <div className="flex items-center justify-between">
@@ -19,18 +20,7 @@ const ListAlreadySubmitTask = ({ students, alreadyDone }: Props) => {
 
       <div className="flex flex-col gap-4">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div className="flex items-center gap-3" key={i}>
-            <Avatar className="w-12 h-12">
-              <AvatarImage
-                src="/avatar.jpg"
-                alt="Avatar"
-                width={100}
-                height={100}
-                className="object-cover object-center rounded-full"
-              />
-            </Avatar>
-            <h4>Iqnbal Muthahhary</h4>
-          </div>
+          <CardPeople name="Iqbal Muthahahry" avatar="/avatar.jpg" key={i} />
         ))}
       </div>
     </section>

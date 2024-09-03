@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { Session } from "next-auth";
 import Link from "next/link";
 import { signOut } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 type Props = {
   session: Session | null;
@@ -14,6 +15,7 @@ const ButtonAuth = ({ session }: Props) => {
       action={async () => {
         "use server";
         await signOut();
+        redirect("/");
       }}
     >
       <Button variant="logout" size="lg" type="submit">

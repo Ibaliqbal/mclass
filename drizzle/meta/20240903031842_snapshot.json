@@ -1,6 +1,6 @@
 {
-  "id": "2f45341c-a5ba-41d9-95a9-dfa1daca163e",
-  "prevId": "17467b6b-98de-4675-a091-ab4e65cf217a",
+  "id": "e1530ef0-3544-40e6-9fc7-3cc085d13f78",
+  "prevId": "a6af7509-b4b0-4798-9745-776b5206bf43",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -131,6 +131,75 @@
         }
       }
     },
+    "public.comment_submission": {
+      "name": "comment_submission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "submission_id": {
+          "name": "submission_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "student_id": {
+          "name": "student_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "comment_submission_submission_id_submission_id_fk": {
+          "name": "comment_submission_submission_id_submission_id_fk",
+          "tableFrom": "comment_submission",
+          "tableTo": "submission",
+          "columnsFrom": [
+            "submission_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "comment_submission_student_id_users_id_fk": {
+          "name": "comment_submission_student_id_users_id_fk",
+          "tableFrom": "comment_submission",
+          "tableTo": "users",
+          "columnsFrom": [
+            "student_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "public.done_task": {
       "name": "done_task",
       "schema": "",
@@ -167,6 +236,13 @@
           "primaryKey": false,
           "notNull": false,
           "default": "now()"
+        },
+        "point": {
+          "name": "point",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
         }
       },
       "indexes": {

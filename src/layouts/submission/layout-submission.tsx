@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import ListAlreadySubmitTask from "@/components/class/list-already-submit-task";
 import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
+import Link from "next/link";
 
 type Props = TSubmission & {
   point: number;
@@ -76,8 +77,11 @@ const LayoutSubmission = ({
           </div>
           <p className="text-gray-500 dark:text-gray-300">{dateCreated}</p>
           <div className="flex items-center justify-between mt-3">
-            <p>{point} poin</p>
-            <p>Tanggal : {format(new Date(deadline), "dd MMMM yyyy")}</p>
+            {role === "Student" ? <p>{point} poin</p> : null}
+            <p>Deadline : {format(new Date(deadline), "dd MMMM yyyy")}</p>
+            <Link href={"/"} className="hover:underline">
+              Edit
+            </Link>
           </div>
 
           <Separator />
@@ -106,7 +110,11 @@ const LayoutSubmission = ({
         role === "Student" ? (
           <FormSubmitTask status={status} />
         ) : (
-          <ListAlreadySubmitTask students={students} alreadyDone={doneTask} />
+          <ListAlreadySubmitTask
+            students={students}
+            alreadyDone={doneTask}
+            id={id}
+          />
         )
       ) : null}
     </div>

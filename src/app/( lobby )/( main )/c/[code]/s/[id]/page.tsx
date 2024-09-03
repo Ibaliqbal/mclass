@@ -8,6 +8,7 @@ import { db } from "@/lib/db";
 import { and, eq } from "drizzle-orm";
 import { DoneTaskTable, TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
+import { Files } from "@/types/task";
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
   let status: "done" | "assigned" | "missing" = "assigned";
@@ -47,13 +48,8 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
       <div className="flex flex-col gap-3">
         <p>{data.description}</p>
         <div className="grid grid-cols-4 gap-3 my-3">
-          {data.files?.map((file: Pick<TSubmission, "files">, i: number) => (
-            <CardFile
-              key={i}
-              index={i}
-              icon="download"
-              type={i % 2 === 0 ? "image" : "pdf"}
-            />
+          {data.files?.map((file: Files, i: number) => (
+            <CardFile key={i} index={i} withIcon {...file} />
           ))}
         </div>
       </div>

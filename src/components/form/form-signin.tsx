@@ -75,6 +75,7 @@ const FormSignIn = () => {
                   className="md:text-xl text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                   placeholder="Enter your password.."
                   {...field}
+                  type="password"
                 />
               </FormControl>
               <FormMessage />
