@@ -23,6 +23,7 @@ import { userService } from "@/services/user";
 import { AxiosError } from "axios";
 import { UploadButton } from "@/utils/uploadthing";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import ButtonLogout from "@/components/button/button-logout";
 
 const SettingsView = () => {
   const { data } = useQuery({
@@ -186,6 +187,10 @@ const SettingsView = () => {
             onChnage={(value) => setTheme(value)}
           />
         </div>
+
+        {/* <div className="mt-4">
+          <ButtonLogout />
+        </div> */}
       </div>
     </div>
   );

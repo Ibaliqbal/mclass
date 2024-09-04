@@ -9,4 +9,5 @@ export const classService = {
   forum: (code: string) => instance.get(`/class/${code}/forum`),
   tasks: (code: string) => instance.get(`/class/${code}/tasks`),
   people: (code: string) => instance.get(`/class/${code}/people`),
+  delete: (code: string) => instance.delete(`/class/${code}`),
 };

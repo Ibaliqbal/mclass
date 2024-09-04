@@ -18,6 +18,8 @@ export const taskService = {
     instance.put(`/task/submission/done/${id}`, data),
   submit: (id: string, data: { files: Files[] }) =>
     instance.post(`/task/${id}`, data),
-  deleteSubmitTask: (id: string) => instance.delete(`/task/submission/done/${id}`),
+  deleteSubmitTask: (id: string) =>
+    instance.delete(`/task/submission/done/${id}`),
   status: (id: string) => instance.get(`/task/${id}/status`),
+  delete: (id: string) => instance.delete(`/task/${id}`),
 };

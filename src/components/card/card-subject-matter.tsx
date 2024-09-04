@@ -2,12 +2,14 @@
 import React from "react";
 import { MdOutlineQuiz } from "react-icons/md";
 import { SlBookOpen } from "react-icons/sl";
-import { HiOutlineDotsVertical, HiLink } from "react-icons/hi";
+import { HiOutlineDotsVertical, HiLink, HiTrash } from "react-icons/hi";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import { taskService } from "@/services/task";
 
 type Props = Pick<
   TSubmission,
@@ -76,6 +78,27 @@ const CardSubjectMatter = ({
           >
             <HiLink />
             Share Link
+          </p>
+          <p
+            className="flex items-center gap-2 cursor-pointer text-red-600"
+            onClick={async () => {
+              try {
+                await taskService.delete(id);
+                toast.success("Tugas berhasil dihapus!");
+              } catch (error) {
+                const axiosErro = error as AxiosError;
+                const data = axiosErro.response?.data as {
+                  statusCode: number;
+                  message: string;
+                };
+                toast.error(data.message);
+              } finally {
+                location.reload();
+              }
+            }}
+          >
+            <HiTrash />
+            Delete
           </p>
         </div>
       </div>

@@ -44,3 +44,38 @@ export async function GET(
     { status: 200 }
   );
 }
+
+export const DELETE = auth(async (req) => {
+  const session = req.auth;
+  const url = new URL(req.url);
+  const code = url.pathname.split("/").pop() as string;
+
+  if (!session)
+    return Response.json(
+      { statusCode: 401, message: "Unautorized" },
+      { status: 401 }
+    );
+
+  const instuctorId = await db.query.ClassTable.findFirst({
+    where: eq(ClassTable.code, code),
+    columns: {
+      instructorId: true,
+    },
+  });
+
+  if (
+    session.user.role !== "Teacher" &&
+    instuctorId?.instructorId !== session.user.id
+  )
+    return Response.json(
+      { statusCode: 403, message: "Access denied" },
+      { status: 403 }
+    );
+
+  await db.delete(ClassTable).where(eq(ClassTable.code, code));
+
+  return Response.json(
+    { statusCode: 200, message: "Success deleted class" },
+    { status: 200 }
+  );
+});
