@@ -4,7 +4,7 @@ import React from "react";
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
   const { code, id } = params;
-  const data = (await taskService.detail(code, id)).data?.data;
+  const data = (await taskService.detail(id)).data?.data;
   return (
     <TaskEditView
       code={code}

@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CardFile from "@/components/card/card-file";
 import { format } from "date-fns";
 import { TDoneTask, TUser } from "../../lib/db/schema";
-import ButtonEditPoint from "@/components/button/button-edit-point";
+import MoreOption from "@/components/task/more-option";
 
 const TaskAlreadyDoneView = ({
   data,
@@ -37,7 +37,7 @@ const TaskAlreadyDoneView = ({
                   {format(new Date(task.createdAt as Date), "dd MMMM yyyy")}
                 </p>
               </div>
-              <ButtonEditPoint point={task.point} id={task.id} />
+              <MoreOption point={task.point} id={task.id} />
             </div>
             <div className="grid grid-cols-3 gap-3">
               {task.files?.map((file, index) => (

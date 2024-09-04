@@ -20,7 +20,9 @@ export const POST = auth(async (req) => {
     );
 
   const header_photo =
-    STATIC_HEADER_PHOTO[Math.round(Math.random() * STATIC_HEADER_PHOTO.length)];
+    STATIC_HEADER_PHOTO[
+      Math.round(Math.random() * STATIC_HEADER_PHOTO.length - 1)
+    ];
 
   const {
     class_name,

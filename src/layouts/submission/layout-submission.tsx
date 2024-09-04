@@ -15,19 +15,17 @@ import { format } from "date-fns";
 import Link from "next/link";
 import ListComments from "@/components/task/list-comment";
 import { Files } from "@/types/task";
+import { useSession } from "next-auth/react";
+import { useQuery } from "@tanstack/react-query";
+import { userService } from "@/services/user";
 
 type Props = TSubmission & {
   point: number;
   dateCreated: string;
   children: ReactNode;
-  status: "done" | "assigned" | "missing";
   role: "Teacher" | "Student";
   students: string[];
   code: string;
-  name: string;
-  avatar: string;
-  filesSubmit: Files[];
-  idDone: string
 };
 
 const LayoutSubmission = ({
@@ -37,16 +35,15 @@ const LayoutSubmission = ({
   dateCreated,
   deadline,
   children,
-  status,
   role,
   id,
   students,
   code,
-  name,
-  avatar,
-  filesSubmit,
-  idDone
 }: Props) => {
+  const { data } = useQuery({
+    queryKey: ["user-detail"],
+    queryFn: async () => (await userService.get()).data?.data,
+  });
   return (
     <div
       className={`w-full pt-5 pb-10 ${
@@ -90,7 +87,7 @@ const LayoutSubmission = ({
           </div>
           <p className="text-gray-500 dark:text-gray-300">{dateCreated}</p>
           <div className="flex items-center justify-between mt-3">
-            {role === "Student" ? <p>{point} poin</p> : null}
+            {role === "Student" ? <p>{point} point</p> : null}
             <p>Deadline : {format(new Date(deadline), "dd MMMM yyyy")}</p>
             {role === "Teacher" ? (
               <Link
@@ -109,36 +106,30 @@ const LayoutSubmission = ({
             <h6 className="flex items-center gap-2 text-lg">
               <HiUsers className="text-xl" /> Komentar Kelas
             </h6>
-            <ListComments code={code} id={id} />
+            <ListComments id={id} />
             <div className="flex gap-3">
               <Avatar className="w-12 h-12">
                 <AvatarImage
                   src={
-                    avatar
-                      ? avatar
-                      : `https://ui-avatars.com/api/?name=${name}&background=random&color=#fff`
+                    data?.avatar
+                      ? data?.avatar
+                      : `https://ui-avatars.com/api/?name=${data?.name}&background=random&color=#fff`
                   }
                   alt="Avatar"
                   width={100}
                   height={100}
                   className="object-cover object-center rounded-full"
                 />
-                <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{data?.name.charAt(0)}</AvatarFallback>
               </Avatar>
-              <FormClassComment code={code} id={id} />
+              <FormClassComment id={id} />
             </div>
           </div>
         </div>
       </section>
       {type !== "material" && type !== "presence" ? (
         role === "Student" ? (
-          <FormSubmitTask
-            status={status}
-            code={code}
-            id={id}
-            filesSubmit={filesSubmit}
-            idDone={idDone}
-          />
+          <FormSubmitTask id={id} />
         ) : (
           <ListAlreadySubmitTask students={students} id={id} code={code} />
         )

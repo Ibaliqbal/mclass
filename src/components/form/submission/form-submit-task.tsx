@@ -10,24 +10,32 @@ import toast from "react-hot-toast";
 import { taskService } from "@/services/task";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { FaCheck } from "react-icons/fa6";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
-  status: "done" | "assigned" | "missing";
-  code: string;
   id: string;
-  filesSubmit: Files[];
-  idDone: string;
 };
 
-const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
+const FormSubmitTask = ({ id }: Props) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["task", "status", id],
+    queryFn: async () =>
+      (await taskService.status(id)).data?.data as {
+        files: Files[];
+        status: "done" | "assigned" | "missing";
+        idDone: string;
+      },
+    staleTime: 10 * 60 * 1000, // 1 minute
+  });
+  const queryClient = useQueryClient();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [files, setFiles] = useState<Files[]>(filesSubmit || []);
-  const [isLoading, setIsLoading] = useState(false);
+  const [files, setFiles] = useState<Files[]>(data?.files || []);
+  const [loading, setLoading] = useState(false);
 
   const submitTssk = async () => {
     try {
-      setIsLoading(true);
-      await taskService.submit(code, id, { files });
+      setLoading(true);
+      await taskService.submit(id, { files });
       setIsSuccess(true);
     } catch (error) {
       const axiosError = error as AxiosError;
@@ -37,15 +45,16 @@ const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
       };
       toast.error(res.mesaage);
     } finally {
-      setIsLoading(false);
-      location.reload();
+      setLoading(false);
+      queryClient.invalidateQueries({ queryKey: ["task", "status", id] });
     }
   };
 
   const cancelSubmit = async () => {
+    if (!data?.idDone) return toast.error("Invalid id");
     try {
-      setIsLoading(true);
-      await taskService.cancelSubmit(idDone);
+      setLoading(true);
+      await taskService.deleteSubmitTask(data.idDone);
     } catch (error) {
       const axiosError = error as AxiosError;
       const res = axiosError.response?.data as {
@@ -54,27 +63,31 @@ const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
       };
       toast.error(res.mesaage);
     } finally {
-      setIsLoading(false);
-      location.reload();
+      setLoading(false);
+      queryClient.invalidateQueries({ queryKey: ["task", "status", id] });
     }
   };
 
-  return (
+  return isLoading ? (
+    <section className="col-span-2 w-full h-[200px] flex items-center justify-center rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
+      <div className="loader w-[40px]" />
+    </section>
+  ) : (
     <section className="col-span-2 h-fit w-full p-3 flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold">Tugas</h3>
         <p
           className={`${
-            status === "assigned"
+            data?.status === "assigned"
               ? "text-green-500"
-              : status === "missing"
+              : data?.status === "missing"
               ? "text-red-600"
               : ""
           } font-semibold`}
         >
-          {status === "assigned"
+          {data?.status === "assigned"
             ? "Ditugaskan"
-            : status === "done"
+            : data?.status === "done"
             ? "Diserahkan"
             : "Belum Diserahkan"}
         </p>
@@ -87,17 +100,27 @@ const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
         </Alert>
       ) : null}
       <div className="flex flex-col gap-3">
-        {files.map((data, i) => (
-          <CardFile
-            key={data.keyFile}
-            index={i}
-            withIcon={status === "done"}
-            {...data}
-            totalList={files.length}
-          />
-        ))}
+        {data?.files.length ?? 0 > 0
+          ? data?.files.map((done: Files, i: number) => (
+              <CardFile
+                key={done.keyFile}
+                index={i}
+                withIcon={data?.status === "done"}
+                {...done}
+                totalList={data.files.length}
+              />
+            ))
+          : files.map((done: Files, i: number) => (
+              <CardFile
+                key={done.keyFile}
+                index={i}
+                withIcon={data?.status === "done"}
+                {...done}
+                totalList={files.length}
+              />
+            ))}
       </div>
-      {status === "done" || isSuccess ? (
+      {data?.status === "done" || isSuccess ? (
         <Button
           variant="outline"
           type="button"
@@ -111,7 +134,7 @@ const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
         <div className="flex flex-col gap-3">
           <UploadButton
             endpoint="fileUploader"
-            disabled={isLoading}
+            disabled={loading}
             appearance={{
               allowedContent: "hidden",
               button:
@@ -152,7 +175,7 @@ const FormSubmitTask = ({ status, code, id, filesSubmit, idDone }: Props) => {
               size="lg"
               className="font-semibold flex items-center gap-3"
               onClick={submitTssk}
-              disabled={isLoading}
+              disabled={loading}
             >
               Serahkan
             </Button>

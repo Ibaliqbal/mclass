@@ -42,7 +42,7 @@ const TaskEditView = ({
   const onSubmit = async (data: TTask) => {
     try {
       setSuccess("");
-      const res = await taskService.update(code, id, data);
+      const res = await taskService.update(id, data);
       setSuccess(res.data.message);
     } catch (error) {
       const axiosError = error as AxiosError;

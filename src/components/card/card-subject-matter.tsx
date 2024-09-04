@@ -40,7 +40,7 @@ const CardSubjectMatter = ({
     >
       <Link href={`/c/${code}/s/${id}`} className="flex items-center gap-4">
         <div className="p-4 bg-sky-500 rounded-full">
-          {type !== "material" && "presence" ? (
+          {type !== "material" && type !== "presence" ? (
             <MdOutlineQuiz className="text-2xl text-white" />
           ) : (
             <SlBookOpen className="text-2xl text-white" />

@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import { FaFolderOpen } from "react-icons/fa6";
 import { Separator } from "../ui/separator";
 import { motion } from "framer-motion";
@@ -14,11 +13,9 @@ type Props = Pick<TClass, "code" | "className" | "header_photo" | "subject"> & {
     name: string;
     avatar: string | null;
   };
-  i: number;
 };
 
 const CardClass = ({
-  i,
   className,
   code,
   header_photo,

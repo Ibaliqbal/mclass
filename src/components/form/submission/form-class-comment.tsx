@@ -22,7 +22,7 @@ const commentSchema = z.object({
   content: z.string().min(5),
 });
 
-const FormClassComment = ({ code, id }: { code: string; id: string }) => {
+const FormClassComment = ({ id }: { id: string }) => {
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -33,13 +33,13 @@ const FormClassComment = ({ code, id }: { code: string; id: string }) => {
 
   const onSubmit = async (data: z.infer<typeof commentSchema>) => {
     try {
-      await taskService.comment(data, code, id);
+      await taskService.comment(data, id);
       toast.success("Berhasil menambahkan komentar kelas");
     } catch (error) {
       console.log(error);
     } finally {
       form.reset();
-      queryClient.invalidateQueries({ queryKey: ["comments task", id, code] });
+      queryClient.invalidateQueries({ queryKey: ["comments task", id] });
     }
   };
 

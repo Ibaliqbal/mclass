@@ -24,6 +24,59 @@ export const GET = auth(async (req) => {
       { status: 401 }
     );
 
+  if (session.user.role === "Teacher") {
+    const tasks = await db.query.ClassTable.findFirst({
+      where: eq(ClassTable.code, code),
+      columns: {
+        students: true,
+      },
+      with: {
+        submission: {
+          columns: {
+            id: true,
+            title: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+          where: or(
+            eq(SubmissionTable.type, "task"),
+            eq(SubmissionTable.type, "test")
+          ),
+          with: {
+            doneTask: {
+              columns: {
+                id: true,
+                student_id: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const data = tasks?.submission.map((task) => {
+      return {
+        totalStudents: tasks.students.length,
+        alreadyDones: task.doneTask.length,
+        id: task.id,
+        createdAt: task.createdAt,
+        title: task.title,
+        updatedAt: task.updatedAt,
+      };
+    });
+
+    console.log(data);
+
+    return Response.json(
+      {
+        message: `Successfully get tasks class with code ${code}`,
+        statusCode: 200,
+        data,
+      },
+      { status: 200 }
+    );
+  }
+
   const doneTasks = await db.query.DoneTaskTable.findMany({
     where: eq(DoneTaskTable.student_id, session?.user.id as string),
     columns: {
@@ -259,7 +312,7 @@ export const GET = auth(async (req) => {
 
 export const POST = auth(async (req) => {
   const url = new URL(req.url);
-  const code = url.pathname.split("/")[4] as string;
+  const code = url.pathname.split("/").pop() as string;
   const session = req.auth;
   const body = await req.json();
 

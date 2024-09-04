@@ -15,7 +15,7 @@ type Props = {
 const ListAlreadySubmitTask = ({ students, id, code }: Props) => {
   const { isLoading, data } = useQuery({
     queryKey: ["class", id, "students", "done task"],
-    queryFn: async () => (await taskService.done(id, code)).data?.data,
+    queryFn: async () => (await taskService.done(id)).data?.data,
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
   return (

@@ -8,13 +8,12 @@ import { format } from "date-fns";
 
 type Props = {
   id: string;
-  code: string;
 };
 
-const ListComments = ({ id, code }: Props) => {
+const ListComments = ({ id }: Props) => {
   const { data, isLoading } = useQuery({
-    queryKey: ["comments task", id, code],
-    queryFn: async () => (await taskService.getComment(code, id)).data?.data,
+    queryKey: ["comments task", id],
+    queryFn: async () => (await taskService.getComment(id)).data?.data,
     enabled: !!id, // Only fetch if id is provided
     staleTime: 60 * 1000,
   });

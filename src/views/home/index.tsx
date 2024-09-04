@@ -43,7 +43,10 @@ const HomeView = () => {
           },
           i: number
         ) => (
-          <CardClass key={classItem.code} i={i} {...classItem} />
+          <CardClass
+            key={classItem.code}
+            {...classItem}
+          />
         )
       )}
     </div>

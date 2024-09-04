@@ -11,25 +11,18 @@ import { format } from "date-fns";
 import { Files } from "@/types/task";
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
-  let status: "done" | "assigned" | "missing" = "assigned";
-  const today = new Date();
   const session = await auth();
-  const { data } = (await taskService.detail(params.code, params.id)).data;
+  const { data } = (await taskService.detail(params.id)).data;
 
   const doneTask = await db.query.DoneTaskTable.findFirst({
     where: and(
       eq(DoneTaskTable.student_id, session?.user.id as string),
       eq(DoneTaskTable.submissionId, data.id)
     ),
+    columns: {
+      point: true,
+    },
   });
-
-  if (doneTask) {
-    status = "done";
-  }
-
-  if (!doneTask && today.getTime() > new Date(data.deadline).getTime()) {
-    status = "missing";
-  }
 
   return (
     <LayoutSubmission
@@ -39,14 +32,9 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
         "dd MMMM yyyy"
       )}`}
       point={doneTask?.point}
-      status={status}
       role={session?.user.role as "Teacher" | "Student"}
       students={data.class}
       code={params.code}
-      name={session?.user.name}
-      avatar={session?.user.image}
-      filesSubmit={doneTask?.files}
-      idDone={doneTask?.id}
     >
       <div className="flex flex-col gap-3">
         <p>{data.description}</p>

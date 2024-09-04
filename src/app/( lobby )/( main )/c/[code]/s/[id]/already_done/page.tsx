@@ -3,7 +3,7 @@ import TaskAlreadyDoneView from "@/views/tasks/task-already-done-view";
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
   const { code, id } = params;
-  const data = (await taskService.done(id, code)).data?.data;
+  const data = (await taskService.done(id)).data?.data;
   return <TaskAlreadyDoneView data={data} />;
 };
 
