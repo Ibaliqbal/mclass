@@ -19,7 +19,7 @@ const ListAlreadySubmitTask = ({ students, id, code }: Props) => {
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
   return (
-    <section className="col-span-2 h-fit w-full p-4  flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
+    <section className="lg:col-span-2 h-fit w-full p-4 md:px-4 px-2  flex flex-col gap-3 rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-semibold">Alraedy Submit</h3>
         <p className={`font-semibold`}>{`${data?.length || 0}/${

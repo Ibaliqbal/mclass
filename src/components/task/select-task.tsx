@@ -26,7 +26,7 @@ const SelectTask = ({
 
   return (
     <Select defaultValue={value} onValueChange={handleSelectChange}>
-      <SelectTrigger className="w-[350px] h-12">
+      <SelectTrigger className="md:w-[350px] w-full h-12">
         <SelectValue placeholder="Select a timezone" className="py-4" />
       </SelectTrigger>
       <SelectContent>

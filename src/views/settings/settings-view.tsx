@@ -73,7 +73,7 @@ const SettingsView = () => {
         <div className="mt-3">
           <h3>Gambar Profil</h3>
 
-          <div className="selft-start w-fit flex flex-col gap-2 mt-3 items-center">
+          <div className="selft-start md:w-fit w-full flex flex-col justify-center gap-2 mt-3 items-center">
             <Avatar className="w-[60px] h-[60px]">
               <AvatarImage
                 src={
@@ -133,7 +133,7 @@ const SettingsView = () => {
               control={form.control}
               name="oldPassword"
               render={({ field }) => (
-                <FormItem className="flex flex-col gap-3 w-[40%]">
+                <FormItem className="flex flex-col gap-3 lg:w-[40%] md:w-[60%] w-full">
                   <Label htmlFor={field.name}>Old Password</Label>
                   <Input
                     type="password"
@@ -151,7 +151,7 @@ const SettingsView = () => {
               control={form.control}
               name="newPassword"
               render={({ field }) => (
-                <FormItem className="flex flex-col gap-3 w-[40%]">
+                <FormItem className="flex flex-col gap-3 lg:w-[40%] md:w-[60%] w-full">
                   <Label htmlFor={field.name}>New Password</Label>
                   <Input
                     type="password"

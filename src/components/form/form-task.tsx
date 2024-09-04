@@ -39,8 +39,8 @@ type Props = {
   form: UseFormReturn<TTask, any, undefined>;
   success: string;
   onSubmit: (data: TTask) => Promise<void>;
-  textBtn: string
-  title: string
+  textBtn: string;
+  title: string;
 };
 
 const FormTask = ({ form, success, onSubmit, textBtn, title }: Props) => {
@@ -100,7 +100,7 @@ const FormTask = ({ form, success, onSubmit, textBtn, title }: Props) => {
             </FormItem>
           )}
         />
-        <div className="grid grid-cols-2 gap-3">
+        <div className="md:grid md:grid-cols-2 md:gap-3 flex flex-col gap-5">
           <FormField
             control={form.control}
             name="type"

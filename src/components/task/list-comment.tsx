@@ -38,16 +38,16 @@ const ListComments = ({ id }: Props) => {
               alt="Avatar"
               width={70}
               height={70}
-              className="object-cover object-center rounded-full w-12 aspect-square"
+              className="object-cover object-center rounded-full lg:w-12 w-10 aspect-square"
             />
             <div className="flex flex-col gap-2 grow">
               <div className="flex gap-3 items-center">
-                <h2>{comment.name}</h2>
-                <p className="text-gray-500 text-sm">
+                <h2 className="text-sm">{comment.name}</h2>
+                <p className="text-gray-500 md:text-sm text-xs">
                   {format(new Date(comment.createdAt), "dd MMMM yyyy")}
                 </p>
               </div>
-              <p>{comment.content}</p>
+              <p className="text-sm">{comment.content}</p>
             </div>
           </div>
         )

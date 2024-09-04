@@ -17,7 +17,7 @@ const Sidebar = async () => {
   const session = await auth();
 
   return (
-    <aside className="col-span-1 py-4 flex flex-col gap-4">
+    <aside className="col-span-1 lg:flex py-4 hidden flex-col gap-4">
       <LinkActive
         className="text-lg flex items-center gap-3 font-semibold px-3"
         href="/"

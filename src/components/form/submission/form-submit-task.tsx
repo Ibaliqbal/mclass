@@ -69,7 +69,7 @@ const FormSubmitTask = ({ id }: Props) => {
   };
 
   return isLoading ? (
-    <section className="col-span-2 w-full h-[200px] flex items-center justify-center rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
+    <section className="lg:col-span-2 w-full h-[200px] flex items-center justify-center rounded-md border-[1px] border-gray-500 shadow-md shadow-black">
       <div className="loader w-[40px]" />
     </section>
   ) : (

@@ -14,8 +14,6 @@ import { TSubmission } from "@/lib/db/schema";
 import { format } from "date-fns";
 import Link from "next/link";
 import ListComments from "@/components/task/list-comment";
-import { Files } from "@/types/task";
-import { useSession } from "next-auth/react";
 import { useQuery } from "@tanstack/react-query";
 import { userService } from "@/services/user";
 
@@ -46,18 +44,18 @@ const LayoutSubmission = ({
   });
   return (
     <div
-      className={`w-full pt-5 pb-10 ${
+      className={`w-full md:pt-5 pt-3 pb-10 ${
         type !== "material" && type !== "presence"
-          ? "grid grid-cols-6"
-          : "container max-w-6xl"
+          ? "lg:grid lg:grid-cols-6 flex flex-col"
+          : "container md:max-w-6xl max-w-full"
       } gap-3`}
     >
       <section
         className={`${
-          type !== "material" ? "col-span-4" : ""
-        } w-full flex gap-4 px-3`}
+          type !== "material" ? "lg:col-span-4" : ""
+        } w-full flex gap-4 md:px-3 lg:mb-0 mb-4`}
       >
-        <div className="p-4 bg-sky-500 rounded-full w-fit h-fit">
+        <div className="p-4 bg-sky-500 rounded-full lg:block hidden w-fit h-fit">
           {type !== "material" && type !== "presence" ? (
             <MdOutlineQuiz className="text-2xl text-white" />
           ) : (
@@ -66,12 +64,12 @@ const LayoutSubmission = ({
         </div>
         <div className="flex flex-col gap-2 grow pt-3">
           <div className="w-full flex justify-between items-center">
-            <h1 className="text-3xl font-semibold">{title}</h1>
+            <h1 className="lg:text-3xl text-xl font-semibold">{title}</h1>
             <div className="relative group w-fit">
-              <HiOutlineDotsVertical className="text-2xl cursor-pointer" />
+              <HiOutlineDotsVertical className="lg:text-2xl text-xl cursor-pointer" />
               <div className="bg-white rounded-md p-3 flex flex-col opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out gap-3 absolute right-3 top-3 text-nowrap dark:text-black">
                 <p
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer md:text-lg text-sm"
                   onClick={async () => {
                     await navigator.clipboard.writeText(
                       `${process.env.NEXT_PUBLIC_APP_URL}/c/${code}/s/${id}`
@@ -85,8 +83,10 @@ const LayoutSubmission = ({
               </div>
             </div>
           </div>
-          <p className="text-gray-500 dark:text-gray-300">{dateCreated}</p>
-          <div className="flex items-center justify-between mt-3">
+          <p className="text-gray-500 dark:text-gray-300 lg:text-lg text-xs">
+            {dateCreated}
+          </p>
+          <div className="flex items-center justify-between mt-3 lg:text-sm text-xs">
             {role === "Student" ? <p>{point} point</p> : null}
             <p>Deadline : {format(new Date(deadline), "dd MMMM yyyy")}</p>
             {role === "Teacher" ? (
@@ -108,7 +108,7 @@ const LayoutSubmission = ({
             </h6>
             <ListComments id={id} />
             <div className="flex gap-3">
-              <Avatar className="w-12 h-12">
+              <Avatar className="w-12 h-12 md:block hidden">
                 <AvatarImage
                   src={
                     data?.avatar

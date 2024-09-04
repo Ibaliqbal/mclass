@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins, Roboto } from "next/font/google";
 import "@/styles/globals.css";
 import TopLoader from "@/components/loader/top-loader";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "react-hot-toast";
 import Provider from "../provider/index";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ weight: "500", subsets: ["latin-ext"] });
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto.className}>
         <ThemeProvider defaultTheme="system" attribute="class" enableSystem>
           <TopLoader />
           <Provider>{children}</Provider>

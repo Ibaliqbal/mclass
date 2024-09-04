@@ -1,6 +1,6 @@
 <div align="center">
 
-# MCLASS
+# 🎓 MCLASS
 
 </div>
 
@@ -8,19 +8,30 @@
 
 MCLASS is a Learning Management System (LMS) designed to revolutionize the digital education landscape. This comprehensive platform seamlessly connects students and teachers in a dynamic virtual environment. Students can easily join classes using unique access codes, access course materials, and submit assignments through an intuitive interface. Meanwhile, educators benefit from robust tools to create and manage classes, design and distribute tailored coursework, and efficiently evaluate student submissions. MCLASS streamlines the entire learning process, fostering engagement and collaboration within a secure, integrated digital ecosystem. With its user-friendly design and powerful features, MCLASS is poised to transform the way educational institutions approach online and blended learning, making it an indispensable tool for modern education.
 
-## Inspiration Design
+## ✨ Inspiration Design
 
 [Google Classroom](https://classroom.google.com/)
 
-## Features
+## 🚀 Features
 
-- **Light/dark mode toggle**: Customize your viewing experience for comfort and accessibility.
-- **Create or Join Class**: Easily create new virtual classrooms or join existing ones using unique access codes.
-- **Create and Submit Tasks**: Teachers can create assignments, while students can submit their work directly through the platform.
-- **Authentication**: Secure user authentication system to protect user data and ensure privacy.
+### Seamless Class Management
+
+- **Join Classes**: Students can easily join classes by entering unique access codes provided by their teachers
+- **Create Classes**: Educators can effortlessly set up new virtual classrooms with customizable settings and information.
+
+### Interactive Learning Experience
+
+- **Access Course Materials**: Students can access a wide range of course materials, including documents, presentations, videos, and interactive content.
+- **Submit Assignments**: Students can submit their assignments directly through the MCLASS platform, ensuring a streamlined workflow.
+- **File Support**: MCLASS supports a variety of file formats, including PDF, DOC/DOCX, PPT/PPTX, XLS/XLSX, images, and videos, allowing for a diverse range of learning resources.
+- **Grade Submissions**: Teachers can efficiently evaluate and provide feedback on student assignments within the MCLASS interface.
+
+### Personalized and Accessible
+
+- **Light/Dark Mode**: Users can toggle between light and dark mode, providing a customized viewing experience for comfort and accessibility.
 - **Update Profile**: Users can personalize their profiles and keep their information up-to-date.
 
-## Techstack
+## 🛠 Techstack
 
 - **NextJs**
 - **TypeScript**
@@ -30,7 +41,7 @@ MCLASS is a Learning Management System (LMS) designed to revolutionize the digit
 - **NextAuth**
 - **Shadcn/UI**
 
-## Getting Started
+## 🏁 Getting Started
 
 To get started with MCLASS, follow these steps:
 

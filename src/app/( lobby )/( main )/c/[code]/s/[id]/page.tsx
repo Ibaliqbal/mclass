@@ -31,14 +31,14 @@ const page = async ({ params }: { params: { code: string; id: string } }) => {
         new Date(data.updatedAt),
         "dd MMMM yyyy"
       )}`}
-      point={doneTask?.point}
+      point={doneTask?.point || 0}
       role={session?.user.role as "Teacher" | "Student"}
       students={data.class}
       code={params.code}
     >
       <div className="flex flex-col gap-3">
-        <p>{data.description}</p>
-        <div className="grid grid-cols-4 gap-3 my-3">
+        <p className="lg:text-lg text-sm">{data.description}</p>
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 lg:gap-3 gap-5 my-3">
           {data.files?.map((file: Files, i: number) => (
             <CardFile
               key={i}

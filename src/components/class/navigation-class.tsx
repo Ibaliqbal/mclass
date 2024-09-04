@@ -12,7 +12,7 @@ const NavigationClass = ({
 }) => {
   const pathname = usePathname();
   return (
-    <nav className="mt-4 flex gap-4 items-center">
+    <nav className="mt-4 flex gap-4 items-center md:text-lg text-sm">
       <Link
         href={`/c/${code}`}
         className={`${

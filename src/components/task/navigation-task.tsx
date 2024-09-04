@@ -6,7 +6,7 @@ import React from "react";
 const NavigationTask = ({ code }: { code: string }) => {
   const pathname = usePathname();
   return (
-    <nav className="mt-4 flex gap-4 items-center">
+    <nav className="mt-4 flex gap-4 items-center md:text-lg text-sm">
       <Link
         href={`/t/missing/${code}`}
         className={`${

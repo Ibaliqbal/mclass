@@ -14,7 +14,7 @@ const CardPeople = ({ avatar, name, withBorder }: Props) => {
         withBorder ? "pb-2 border-b border-gray-500" : ""
       }`}
     >
-      <Avatar className="w-12 h-12">
+      <Avatar className="md:w-12 md:h-12 w-10 h-10">
         <AvatarImage
           src={
             avatar

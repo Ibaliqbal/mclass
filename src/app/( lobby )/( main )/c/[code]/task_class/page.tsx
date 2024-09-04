@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 
 const page = async ({ params }: { params: { code: string } }) => {
   const session = await auth();
+  
   const doneTasks = await db.query.DoneTaskTable.findMany({
     where: eq(DoneTaskTable.student_id, session?.user.id as string),
     columns: {

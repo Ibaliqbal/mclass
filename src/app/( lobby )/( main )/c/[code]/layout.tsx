@@ -38,13 +38,15 @@ const layout = async ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 className="font-semibold text-4xl">{data.data.className}</h1>
+        <h1 className="font-semibold md:text-4xl text-2xl">
+          {data.data.className}
+        </h1>
         {session?.user.role === "Teacher" ? (
-          <h2 className="text-sm">Code: {data.data.code}</h2>
+          <h3 className="md:text-sm text-xs">Code: {data.data.code}</h3>
         ) : null}
-        <h4 className="mt-3 text-lg">{data.data.instructor.name}</h4>
-        <p>Mata Pelajaran : {data.data.subject}</p>
-        <p>Ruang : {data.data.room}</p>
+        <h4 className="mt-3 md:text-lg text-sm">{data.data.instructor.name}</h4>
+        <p className="md:text-sm text-xs">Mata Pelajaran : {data.data.subject}</p>
+        <p className="md:text-sm text-xs">Ruang : {data.data.room}</p>
       </div>
       <Separator className="mt-3" />
       <NavigationClass
@@ -59,7 +61,7 @@ const layout = async ({
               <Link
                 href={`/c/${params.code}/create`}
                 aria-label="add new mission"
-                className="fixed bottom-10 right-10 z-50 bg-green-500 text-slate-100 shadow hover:bg-green-900/90 dark:bg-green-600 dark:text-slate-100 dark:hover:bg-green-700/90 p-4 rounded-full flex items-center justify-center text-xl"
+                className="fixed md:bottom-10 bottom-5 md:right-10 right-5 z-50 bg-green-500 text-slate-100 shadow hover:bg-green-900/90 dark:bg-green-600 dark:text-slate-100 dark:hover:bg-green-700/90 p-4 rounded-full flex items-center justify-center text-xl"
               >
                 <FaPlus />
               </Link>

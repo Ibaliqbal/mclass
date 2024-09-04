@@ -6,9 +6,9 @@ const layout = ({ children }: { children: ReactNode }) => {
   return (
     <main>
       <NavbarHome />
-      <section className="grid grid-cols-5 gap-4 w-full px-4 mt-4">
+      <section className="lg:grid lg:grid-cols-5 lg:gap-4 w-full px-4 mt-4">
         <Sidebar />
-        <main className="col-span-4 pb-10">
+        <main className="lg:col-span-4 pb-10">
           {children}
         </main>
       </section>

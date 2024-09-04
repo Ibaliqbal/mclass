@@ -43,15 +43,15 @@ const CardSubjectMatter = ({
       <Link href={`/c/${code}/s/${id}`} className="flex items-center gap-4">
         <div className="p-4 bg-sky-500 rounded-full">
           {type !== "material" && type !== "presence" ? (
-            <MdOutlineQuiz className="text-2xl text-white" />
+            <MdOutlineQuiz className="md:text-2xl text-xl text-white" />
           ) : (
-            <SlBookOpen className="text-2xl text-white" />
+            <SlBookOpen className="md:text-2xl text-xl text-white" />
           )}
         </div>
         <div>
-          <h2 className="text-lg line-clamp-1">{title}</h2>
+          <h2 className="md:text-lg text-sm line-clamp-1">{title}</h2>
           <div className="flex items-center gap-2">
-            <p className="text-gray-500 dark:text-gray-300 text-sm">
+            <p className="text-gray-500 dark:text-gray-300 md:text-sm text-xs">
               {new Date(updatedAt as Date).getTime() >
               new Date(createdAt as Date).getTime()
                 ? format(new Date(createdAt as Date), "dd MMMM yyyy")
@@ -59,7 +59,7 @@ const CardSubjectMatter = ({
             </p>
             {new Date(updatedAt as Date).getTime() >
             new Date(createdAt as Date).getTime() ? (
-              <p className="text-sm">(update)</p>
+              <p className="md:text-sm text-xs">(update)</p>
             ) : null}
           </div>
         </div>

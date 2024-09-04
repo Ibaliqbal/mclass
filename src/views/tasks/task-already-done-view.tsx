@@ -16,7 +16,7 @@ const TaskAlreadyDoneView = ({
     <section className="container max-w-6xl mt-5 flex flex-col gap-4">
       {data.map((task) => (
         <section className="flex gap-5" key={task.id}>
-          <Avatar className="w-14 h-14">
+          <Avatar className="w-14 h-14 lg:block hidden">
             <AvatarImage
               src={
                 task.avatar
@@ -30,7 +30,7 @@ const TaskAlreadyDoneView = ({
             <AvatarFallback>{task.name.charAt(0)}</AvatarFallback>
           </Avatar>
           <div className="grow flex flex-col gap-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
                 <h3>{task.name}</h3>
                 <p className="text-gray-500 text-sm">
@@ -39,7 +39,7 @@ const TaskAlreadyDoneView = ({
               </div>
               <MoreOption point={task.point} id={task.id} />
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid md:grid-cols-3 grid-cols-2 gap-3">
               {task.files?.map((file, index) => (
                 <CardFile
                   index={index}

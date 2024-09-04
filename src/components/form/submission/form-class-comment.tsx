@@ -70,6 +70,7 @@ const FormClassComment = ({ id }: { id: string }) => {
           variant="icon"
           className="text-start disabled:text-gray-500 disabled:cursor-not-allowed"
           type="submit"
+          size="sm"
           disabled={form.formState.isSubmitting}
         >
           <RiSendPlane2Line className="text-xl" />

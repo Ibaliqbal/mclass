@@ -29,11 +29,13 @@ const CardTask = ({ index, status, code, createdAt, id, title }: Props) => {
         className="py-3 px-2 w-full flex justify-between items-center"
       >
         <div>
-          <h3 className="text-lg font-bold line-clamp-1">{title}</h3>
-          <p className="text-gray-600">Tanggal: {createdAt}</p>
+          <h3 className="md:text-lg text-sm font-bold line-clamp-1">{title}</h3>
+          <p className="text-gray-600 md:text-sm text-xs">
+            Tanggal: {createdAt}
+          </p>
         </div>
         <p
-          className={`text-lg ${
+          className={`md:text-lg text-xs ${
             status === "missing"
               ? "text-red-600"
               : status === "assigned"
