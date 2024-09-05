@@ -1,13 +1,13 @@
 import { auth } from "@/lib/auth";
-import SettingsView from "@/views/settings/settings-view";
 import { redirect } from "next/navigation";
+import React, { ReactNode } from "react";
 
-const page = async () => {
+const layout = async ({ children }: { children: ReactNode }) => {
   const session = auth();
 
   if (!session) return redirect("/");
 
-  return <SettingsView />;
+  return children;
 };
 
-export default page;
+export default layout;

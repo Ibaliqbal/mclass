@@ -62,7 +62,7 @@ const ButtonCraeteClass = () => {
               type: "tween",
             }}
             onSubmit={form.handleSubmit(onSubmit)}
-            className="fixed w-[600px] pb-8 overflow-auto bg-white dark:bg-black dark:bg-opacity-80 h-fit flex flex-col gap-4 m-auto inset-0 z-[70] rounded-lg p-3 px-5 modal-post border border-gray-500"
+            className="fixed md:w-[600px] w-[400px] pb-8 overflow-auto bg-white dark:bg-black dark:bg-opacity-80 h-fit flex flex-col gap-4 lg:my-auto mx-auto md:mt-52 mt-36 inset-0 z-[70] rounded-lg p-3 px-5 modal-post border border-gray-500"
           >
             <h2 className="font-semibold text-2xl">Create Class</h2>
             <FormField
