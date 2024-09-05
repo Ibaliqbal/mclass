@@ -23,7 +23,6 @@ import { userService } from "@/services/user";
 import { AxiosError } from "axios";
 import { UploadButton } from "@/utils/uploadthing";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import ButtonLogout from "@/components/button/button-logout";
 
 const SettingsView = () => {
   const { data } = useQuery({
@@ -54,7 +53,6 @@ const SettingsView = () => {
       setIsSuccess(true);
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log(axiosError);
       const data = axiosError.response?.data as {
         statusCode: number;
         message: string;
@@ -98,7 +96,12 @@ const SettingsView = () => {
                   setLoading(true);
                   await userService.update({ avatar: res[0].url }, "avatar");
                 } catch (err) {
-                  console.log(err);
+                  const axiosError = err as AxiosError;
+                  const data = axiosError.response?.data as {
+                    statusCode: number;
+                    message: string;
+                  };
+                  setError(data.message);
                 } finally {
                   setLoading(false);
                   queryClient.invalidateQueries({ queryKey: ["user-detail"] });
@@ -187,10 +190,6 @@ const SettingsView = () => {
             onChnage={(value) => setTheme(value)}
           />
         </div>
-
-        {/* <div className="mt-4">
-          <ButtonLogout />
-        </div> */}
       </div>
     </div>
   );

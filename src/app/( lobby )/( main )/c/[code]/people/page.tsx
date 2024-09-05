@@ -18,7 +18,6 @@ export const generateMetadata = ({
 const page = async ({ params }: { params: { code: string } }) => {
   const { data } = await classService.people(params.code);
 
-  console.log(data);
   return (
     <div className="mt-6 flex flex-col gap-6 max-w-6xl container">
       <section className="flex flex-col gap-4">

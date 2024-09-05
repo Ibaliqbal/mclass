@@ -42,7 +42,6 @@ export async function GET(
       { status: 200 }
     );
 
-  console.log("here");
   return Response.json(
     {
       message: "Success",

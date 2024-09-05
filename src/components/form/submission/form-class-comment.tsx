@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { taskService } from "@/services/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -36,7 +37,12 @@ const FormClassComment = ({ id }: { id: string }) => {
       await taskService.comment(data, id);
       toast.success("Berhasil menambahkan komentar kelas");
     } catch (error) {
-      console.log(error);
+      const axiosError = error as AxiosError;
+      const res = axiosError.response?.data as {
+        mesaage: string;
+        statusCode: number;
+      };
+      toast.error(res.mesaage);
     } finally {
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["comments task", id] });

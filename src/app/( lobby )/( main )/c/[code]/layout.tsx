@@ -35,7 +35,7 @@ const layout = async ({
       </section>
     );
 
-  return !statusJoin ? (
+  return !statusJoin && data.data.instructorId !== session.user.id ? (
     <section className="w-full pt-5 pb-10 h-[80dvh] flex items-center justify-center flex-col">
       <Image
         src={"/enter-class.png"}

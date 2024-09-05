@@ -25,6 +25,7 @@ export async function GET(
       header_photo: true,
       room: true,
       subject: true,
+      instructorId: true,
     },
   });
 

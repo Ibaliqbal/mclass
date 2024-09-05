@@ -26,8 +26,6 @@ export async function POST(req: NextRequest) {
     .from(UserTable)
     .where(eq(UserTable.email, body.email));
 
-  console.log(existingUser);
-
   if (existingUser.length)
     return Response.json(
       {

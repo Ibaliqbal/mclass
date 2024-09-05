@@ -33,7 +33,11 @@ const ButtonCraeteClass = () => {
       location.reload();
     } catch (error) {
       const axiosErr = error as AxiosError;
-      console.log(axiosErr);
+      const data = axiosErr.response?.data as {
+        message: string;
+        statusCode: number;
+      }
+      toast.error(data.message);
     } finally {
       form.reset();
     }

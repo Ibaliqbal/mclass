@@ -65,8 +65,6 @@ export const GET = auth(async (req) => {
       };
     });
 
-    console.log(data);
-
     return Response.json(
       {
         message: `Successfully get tasks class with code ${code}`,
