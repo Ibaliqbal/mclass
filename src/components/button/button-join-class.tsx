@@ -38,7 +38,11 @@ const ButtonJoinClass = () => {
       toast.success(res.data.message);
     } catch (error) {
       const axiosErr = error as AxiosError;
-      console.log(axiosErr);
+      const res = axiosErr.response?.data as {
+        statusCode: number;
+        message: string;
+      };
+      toast.error(res.message);
     } finally {
       form.reset();
     }

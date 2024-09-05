@@ -24,6 +24,12 @@ export const POST = auth(async (req) => {
     },
   });
 
+  if (!existingStudents)
+    return Response.json(
+      { statusCode: 404, message: "Class nor found" },
+      { status: 404 }
+    );
+
   const isExist = existingStudents?.students.find(
     (student) => student === exampleIdStudent
   );

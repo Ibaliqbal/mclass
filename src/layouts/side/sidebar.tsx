@@ -5,6 +5,7 @@ import ListClass from "@/components/side/list-class";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@/lib/auth";
+import Link from "next/link";
 import React from "react";
 import {
   IoHomeOutline,
@@ -29,16 +30,17 @@ const Sidebar = async () => {
         <>
           <Separator />
           <ListClass session={session} />
-          <Separator />
+          <Separator />{" "}
+          <LinkActive
+            href="/settings"
+            className="text-lg flex items-center gap-3 font-semibold px-3"
+            text="Settings"
+            active={<IoSettings className="text-2xl" />}
+            nonActive={<IoSettingsOutline className="text-2xl" />}
+          />
         </>
       ) : null}
-      <LinkActive
-        href="/settings"
-        className="text-lg flex items-center gap-3 font-semibold px-3"
-        text="Settings"
-        active={<IoSettings className="text-2xl" />}
-        nonActive={<IoSettingsOutline className="text-2xl" />}
-      />
+
       {session ? (
         session.user.role === "Teacher" ? (
           <ButtonCraeteClass />
@@ -59,6 +61,16 @@ const Sidebar = async () => {
           ya! 🎓
         </p>
       </div>
+      <p className="text-center text-wrap text-sm">
+        Inspiration design{" "}
+        <Link
+          href={"https://classroom.google.com/"}
+          className="text-blue-600 hover:underline"
+          target="_blank"
+        >
+          Google Classroom
+        </Link>
+      </p>
     </aside>
   );
 };

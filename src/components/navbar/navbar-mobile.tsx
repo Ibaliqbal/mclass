@@ -15,6 +15,7 @@ import ButtonCraeteClass from "../button/button-create-class";
 import ButtonJoinClass from "../button/button-join-class";
 import { Calendar } from "../ui/calendar";
 import ButtonHamburger from "../button/button-humberger";
+import Link from "next/link";
 
 const NavbarMobile = ({ session }: { session: Session | null }) => {
   const [openSide, setOpenSide] = React.useState(false);
@@ -25,9 +26,9 @@ const NavbarMobile = ({ session }: { session: Session | null }) => {
         {openSide && (
           <section className="w-[100%] h-dvh bg-black bg-opacity-40 absolute top-0 right-0 flex items-center justify-end">
             <motion.aside
-              initial={{ translateX: 500 }}
+              initial={{ translateX: -500 }}
               animate={{ translateX: 0 }}
-              exit={{ translateX: 500 }}
+              exit={{ translateX: -500 }}
               transition={{
                 duration: 0.6,
                 ease: "easeIn",
@@ -38,7 +39,7 @@ const NavbarMobile = ({ session }: { session: Session | null }) => {
               <ButtonHamburger
                 open={openSide}
                 setOpen={setOpenSide}
-                className="self-end mb-5"
+                className="mb-5"
               />
               <LinkActive
                 className="text-lg flex items-center gap-3 font-semibold px-3"
@@ -52,15 +53,15 @@ const NavbarMobile = ({ session }: { session: Session | null }) => {
                   <Separator />
                   <ListClass session={session} />
                   <Separator />
+                  <LinkActive
+                    href="/settings"
+                    className="text-lg flex items-center gap-3 font-semibold px-3"
+                    text="Settings"
+                    active={<IoSettings className="text-2xl" />}
+                    nonActive={<IoSettingsOutline className="text-2xl" />}
+                  />
                 </>
               ) : null}
-              <LinkActive
-                href="/settings"
-                className="text-lg flex items-center gap-3 font-semibold px-3"
-                text="Settings"
-                active={<IoSettings className="text-2xl" />}
-                nonActive={<IoSettingsOutline className="text-2xl" />}
-              />
               {session ? (
                 session.user.role === "Teacher" ? (
                   <ButtonCraeteClass />
@@ -81,6 +82,16 @@ const NavbarMobile = ({ session }: { session: Session | null }) => {
                   ya! 🎓
                 </p>
               </div>
+              <p className="text-center text-wrap text-sm">
+                Inspiration design{" "}
+                <Link
+                  href={"https://classroom.google.com/"}
+                  className="text-blue-600 hover:underline"
+                  target="_blank"
+                >
+                  Google Classroom
+                </Link>
+              </p>
             </motion.aside>
           </section>
         )}

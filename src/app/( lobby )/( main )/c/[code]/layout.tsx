@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 import { auth } from "@/lib/auth";
 import { classService } from "@/services/class";
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
@@ -21,14 +22,34 @@ const layout = async ({
   children: ReactNode;
 }) => {
   const session = await auth();
-  const { data } = await classService.detail(params.code);
+  const { data, status } = await classService.detail(params.code);
 
   if (!session) return redirect("/");
 
   const statusJoin = data?.data.students.includes(session?.user.id as string);
 
-  return (
-    <div className="w-full pt-5 pb-10">
+  if (status === 404)
+    return (
+      <section className="w-full pt-5 pb-10 h-[80dvh] flex items-center justify-center">
+        <h2 className="text-2xl font-semibold">Class not found</h2>
+      </section>
+    );
+
+  return !statusJoin ? (
+    <section className="w-full pt-5 pb-10 h-[80dvh] flex items-center justify-center flex-col">
+      <Image
+        src={"/enter-class.png"}
+        alt="Enter"
+        width={500}
+        height={500}
+        loading="lazy"
+      />
+      <h2 className="text-2xl font-semibold">
+        To get all information for this class, please join first!
+      </h2>
+    </section>
+  ) : (
+    <section className="w-full pt-5 pb-10">
       <div
         className="w-full p-3 h-60 rounded-md flex flex-col justify-end mix-blend-difference text-white dark:header_photo"
         style={{
@@ -45,7 +66,9 @@ const layout = async ({
           <h3 className="md:text-sm text-xs">Code: {data.data.code}</h3>
         ) : null}
         <h4 className="mt-3 md:text-lg text-sm">{data.data.instructor.name}</h4>
-        <p className="md:text-sm text-xs">Mata Pelajaran : {data.data.subject}</p>
+        <p className="md:text-sm text-xs">
+          Mata Pelajaran : {data.data.subject}
+        </p>
         <p className="md:text-sm text-xs">Ruang : {data.data.room}</p>
       </div>
       <Separator className="mt-3" />
@@ -72,7 +95,7 @@ const layout = async ({
           </Tooltip>
         </TooltipProvider>
       ) : null}
-    </div>
+    </section>
   );
 };
 

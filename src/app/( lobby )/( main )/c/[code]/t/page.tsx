@@ -7,6 +7,20 @@ import ClassTaskStudent from "@/views/class/class-task-student";
 import ClassTaskTeacherView from "@/views/class/class-task-teacher-view";
 import { eq } from "drizzle-orm";
 import React from "react";
+import { seo } from "@/utils/helper";
+import type { Metadata } from "next";
+
+export const generateMetadata = ({
+  params,
+}: {
+  params: { code: string };
+}): Metadata => {
+  return seo(
+    `All Tasks for Class ${params.code} - View and manage class assignments`,
+    `This page provides a comprehensive overview of all tasks for class ${params.code}, including details on deadlines, submission status, and materials.`,
+    `/c/${params.code}/t`
+  );
+};
 
 const page = async ({ params }: { params: { code: string } }) => {
   const session = await auth();

@@ -5,10 +5,24 @@ import { DoneTaskTable, TSubmission } from "@/lib/db/schema";
 import { classService } from "@/services/class";
 import { format } from "date-fns";
 import { eq } from "drizzle-orm";
+import { seo } from "@/utils/helper";
+import type { Metadata } from "next";
+
+export const generateMetadata = ({
+  params,
+}: {
+  params: { code: string };
+}): Metadata => {
+  return seo(
+    `All Tasks for Class ${params.code} - View and manage class assignments`,
+    `This page provides a comprehensive overview of all tasks for class ${params.code}, including details on deadlines, submission status, and materials.`,
+    `/c/${params.code}/task_class`
+  );
+};
 
 const page = async ({ params }: { params: { code: string } }) => {
   const session = await auth();
-  
+
   const doneTasks = await db.query.DoneTaskTable.findMany({
     where: eq(DoneTaskTable.student_id, session?.user.id as string),
     columns: {

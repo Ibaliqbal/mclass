@@ -6,9 +6,23 @@ import { taskService } from "@/services/task";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { and, eq } from "drizzle-orm";
-import { DoneTaskTable, TSubmission } from "@/lib/db/schema";
+import { DoneTaskTable } from "@/lib/db/schema";
 import { format } from "date-fns";
 import { Files } from "@/types/task";
+import { seo } from "@/utils/helper";
+import type { Metadata } from "next";
+
+export const generateMetadata = ({
+  params,
+}: {
+  params: { code: string; id: string };
+}): Metadata => {
+  return seo(
+    `Submission Details for Class ${params.code} - Review Submission ID ${params.id}`,
+    `This page provides detailed information about submission ID ${params.id} for class ${params.code}, including feedback, grades, and submission status.`,
+    `/c/${params.code}/s/${params.id}`
+  );
+};
 
 const page = async ({ params }: { params: { code: string; id: string } }) => {
   const session = await auth();

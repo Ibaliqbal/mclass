@@ -184,6 +184,7 @@ const FormSubmitTask = ({ id }: Props) => {
               variant="secondary"
               type="button"
               size="lg"
+              onClick={submitTssk}
               className="font-semibold flex items-center gap-3"
             >
               Tanda sebagai selesai

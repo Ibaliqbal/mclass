@@ -4,9 +4,9 @@
 
 </div>
 
-![App Screenshoot](/public/screen-shot-home.png)
+![App Screenshoot](/public/screenshot-home.png)
 
-MCLASS is a Learning Management System (LMS) designed to revolutionize the digital education landscape. This comprehensive platform seamlessly connects students and teachers in a dynamic virtual environment. Students can easily join classes using unique access codes, access course materials, and submit assignments through an intuitive interface. Meanwhile, educators benefit from robust tools to create and manage classes, design and distribute tailored coursework, and efficiently evaluate student submissions. MCLASS streamlines the entire learning process, fostering engagement and collaboration within a secure, integrated digital ecosystem. With its user-friendly design and powerful features, MCLASS is poised to transform the way educational institutions approach online and blended learning, making it an indispensable tool for modern education.
+**MCLASS** is a comprehensive LMS platform that connects students and teachers. It provides features for joining classes, accessing course materials, submitting assignments, and managing classes. MCLASS streamlines the learning process and promotes engagement within a secure digital environment. It is designed to transform online and blended learning.
 
 ## ✨ Inspiration Design
 
@@ -40,6 +40,7 @@ MCLASS is a Learning Management System (LMS) designed to revolutionize the digit
 - **TailwindCSS**
 - **NextAuth**
 - **Shadcn/UI**
+- **Uploadthing**
 
 ## 🏁 Getting Started
 
