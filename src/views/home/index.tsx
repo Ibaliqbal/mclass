@@ -11,6 +11,7 @@ const HomeView = () => {
   const { error, isError, isLoading, data } = useQuery({
     queryKey: ["classes"],
     queryFn: async () => (await classService.get()).data?.classes,
+    retry: false,
   });
 
   if (isLoading) return <Loader />;
@@ -43,10 +44,7 @@ const HomeView = () => {
           },
           i: number
         ) => (
-          <CardClass
-            key={classItem.code}
-            {...classItem}
-          />
+          <CardClass key={classItem.code} {...classItem} />
         )
       )}
     </div>
