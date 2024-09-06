@@ -36,7 +36,7 @@ const ButtonCraeteClass = () => {
       const data = axiosErr.response?.data as {
         message: string;
         statusCode: number;
-      }
+      };
       toast.error(data.message);
     } finally {
       form.reset();
@@ -66,7 +66,7 @@ const ButtonCraeteClass = () => {
               type: "tween",
             }}
             onSubmit={form.handleSubmit(onSubmit)}
-            className="fixed md:w-[600px] w-[400px] pb-8 overflow-auto bg-white dark:bg-black dark:bg-opacity-80 h-fit flex flex-col gap-4 lg:my-auto mx-auto md:mt-52 mt-36 inset-0 z-[70] rounded-lg p-3 px-5 modal-post border border-gray-500"
+            className="fixed md:w-[600px] w-[320px] pb-8 overflow-auto bg-white dark:bg-black dark:bg-opacity-80 h-fit flex flex-col gap-4 lg:my-auto mx-auto md:mt-52 mt-36 inset-0 z-[70] rounded-lg p-3 px-5 modal-post border border-gray-500"
           >
             <h2 className="font-semibold text-2xl">Create Class</h2>
             <FormField
@@ -77,7 +77,7 @@ const ButtonCraeteClass = () => {
                   <FormLabel className="text-lg">Class Name</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-lg py-7 border-2 border-slate-700 focus:outline-none"
+                      className="text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                       placeholder="Enter your class name..."
                       {...field}
                     />
@@ -94,7 +94,7 @@ const ButtonCraeteClass = () => {
                   <FormLabel className="text-lg">Subject</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-lg py-7 border-2 border-slate-700 focus:outline-none"
+                      className="text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                       placeholder="Enter your subject..."
                       {...field}
                     />
@@ -111,7 +111,7 @@ const ButtonCraeteClass = () => {
                   <FormLabel className="text-lg">Room</FormLabel>
                   <FormControl>
                     <Input
-                      className="text-lg py-7 border-2 border-slate-700 focus:outline-none"
+                      className="text-lg md:py-7 py-5 border-2 border-slate-700 focus:outline-none"
                       placeholder="Enter your room class..."
                       {...field}
                     />
@@ -125,14 +125,14 @@ const ButtonCraeteClass = () => {
                 onClick={() => setOpen(false)}
                 variant="logout"
                 type="button"
-                className="py-6"
+                className="md:py-6 py-4"
                 disabled={form.formState.isSubmitting}
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
-                className="py-6"
+                className="md:py-6 py-4"
                 disabled={form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Loading..." : "Create"}

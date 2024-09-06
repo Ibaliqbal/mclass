@@ -70,7 +70,7 @@ const ButtonJoinClass = () => {
               type: "tween",
             }}
             onSubmit={form.handleSubmit(onSubmit)}
-            className="fixed md:w-[600px] w-[400px] pb-8 overflow-auto dark:bg-black bg-white dark:bg-opacity-80 h-fit flex flex-col gap-4 lg:my-auto mx-auto md:mt-96 mt-56 inset-0 z-[70] rounded-lg p-3 modal-post border border-gray-500"
+            className="fixed md:w-[600px] w-[320px] pb-8 overflow-auto dark:bg-black bg-white dark:bg-opacity-80 h-fit flex flex-col gap-4 lg:my-auto mx-auto md:mt-96 mt-56 inset-0 z-[70] rounded-lg p-3 modal-post border border-gray-500"
           >
             <FormField
               control={form.control}
