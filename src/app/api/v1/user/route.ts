@@ -53,6 +53,12 @@ export const PUT = auth(async (req) => {
       { status: 401 }
     );
 
+  if (!type)
+    return Response.json(
+      { statusCode: 400, message: "Missing type query" },
+      { status: 400 }
+    );
+
   const user = await db.query.UserTable.findFirst({
     where: eq(UserTable.id, session.user.id),
     columns: {

@@ -15,8 +15,8 @@ export const POST = auth(async (req) => {
 
   if (session.user.role !== "Teacher")
     return Response.json(
-      { statusCode: 400, message: "Invalid role" },
-      { status: 400 }
+      { statusCode: 403, message: "Invalid role" },
+      { status: 403 }
     );
 
   const header_photo =
