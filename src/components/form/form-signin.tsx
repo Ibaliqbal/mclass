@@ -13,8 +13,8 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { signInSSchema, TSignInS } from "@/types/student";
-import { useRouter } from "next/navigation";
 import { login } from "@/actions/auth";
+import { useRouter } from "nextjs-toploader/app";
 
 const FormSignIn = () => {
   const router = useRouter();

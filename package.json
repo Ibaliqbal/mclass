@@ -38,7 +38,7 @@
     "next": "14.2.6",
     "next-auth": "^5.0.0-beta.20",
     "next-themes": "^0.3.0",
-    "nextjs-toploader": "^1.6.12",
+    "nextjs-toploader": "^3.6.15",
     "postgres": "^3.4.4",
     "react": "^18",
     "react-day-picker": "^8.10.1",
