@@ -18,13 +18,13 @@ textarea::-webkit-scrollbar,
 
 body::-webkit-scrollbar-track,
 textarea::-webkit-scrollbar-track,
-.custom-horizontal-scroll::-webkit-scrollbar-track, {
+.custom-horizontal-scroll::-webkit-scrollbar-track {
   background-color: #f1f1f1;
 }
 
 body::-webkit-scrollbar-thumb,
 textarea::-webkit-scrollbar-thumb,
-.custom-horizontal-scroll::-webkit-scrollbar-thumb, {
+.custom-horizontal-scroll::-webkit-scrollbar-thumb {
   background-color: #888;
   outline: none;
   border-radius: 10px;
@@ -88,4 +88,8 @@ textarea::-webkit-scrollbar-thumb:hover,
   stroke-dasharray: 90 207;
   stroke-dashoffset: -134;
   stroke-width: 6;
+}
+
+.class-title {
+  view-transition-name: class-title-demo;
 }

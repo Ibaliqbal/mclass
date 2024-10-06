@@ -7,7 +7,6 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { code: string } }
 ) {
-  const exampleStudentId = "923d5dc3-496d-41bd-b227-896057c2e4cc";
   const { code } = params;
   const forum = await db.query.ClassTable.findFirst({
     where: eq(ClassTable.code, code),

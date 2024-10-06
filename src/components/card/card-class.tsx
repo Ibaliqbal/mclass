@@ -3,10 +3,10 @@ import React from "react";
 import { FaFolderOpen } from "react-icons/fa6";
 import { Separator } from "../ui/separator";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
 import { TClass } from "@/lib/db/schema";
 import CustomImage from "../image";
+import Link from "next/link";
 
 type Props = Pick<TClass, "code" | "className" | "header_photo" | "subject"> & {
   instructor: {

@@ -5,9 +5,8 @@ import { eq, sql } from "drizzle-orm";
 
 export const POST = auth(async (req) => {
   const session = req.auth;
-  const exampleIdStudent = "5a92f4c1-808d-4f8c-9297-65aef2b0086e";
   const { code }: { code: string } = await req.json();
-
+  
   if (!session)
     return Response.json(
       { statusCode: 401, message: "Unautorized" },
@@ -31,7 +30,7 @@ export const POST = auth(async (req) => {
     );
 
   const isExist = existingStudents?.students.find(
-    (student) => student === exampleIdStudent
+    (student) => student === session.user.id
   );
 
   if (isExist)

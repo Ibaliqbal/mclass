@@ -27,7 +27,8 @@ const layout = async ({
   if (!session) return redirect("/");
 
   const statusJoin = data?.data.students.includes(session?.user.id as string);
-
+  console.log(statusJoin);
+  
   if (status === 404)
     return (
       <section className="w-full pt-5 pb-10 h-[80dvh] flex items-center justify-center">
